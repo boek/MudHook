@@ -1,0 +1,105 @@
+﻿@model IEnumerable<MudHook.Core.Post>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Index</h2>
+
+<p>
+    @Html.ActionLink("Create New", "Create")
+</p>
+<table>
+    <tr>
+        <th>
+            Title
+        </th>
+        <th>
+            Slug
+        </th>
+        <th>
+            Description
+        </th>
+        <th>
+            Html
+        </th>
+        <th>
+            Css
+        </th>
+        <th>
+            Js
+        </th>
+        <th>
+            CustomFields
+        </th>
+        <th>
+            Created
+        </th>
+        <th>
+            IsModified
+        </th>
+        <th>
+            LastModified
+        </th>
+        <th>
+            Author
+        </th>
+        <th>
+            Status
+        </th>
+        <th>
+            Comments
+        </th>
+        <th></th>
+    </tr>
+
+@foreach (var item in Model) {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Title)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Slug)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Description)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Html)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Css)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Js)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.CustomFields)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Created)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.IsModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.LastModified)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Author)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Status)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.Comments)
+        </td>
+        <td>
+            @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
+            @Html.ActionLink("Details", "Details", new { id=item.Id }) |
+            @Html.ActionLink("Delete", "Delete", new { id=item.Id })
+        </td>
+    </tr>
+}
+
+</table>
