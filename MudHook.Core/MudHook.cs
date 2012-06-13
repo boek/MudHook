@@ -10,9 +10,10 @@ namespace MudHook.Core
     using System.Collections.Generic;
     using System.Linq;
     using System.Text;
+    
 
     public class Comment
-    {
+    {                
         public int Id { get; set; }
         public int PostId { get; set; }
         public int Status { get; set; }

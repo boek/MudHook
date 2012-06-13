@@ -41,7 +41,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
         //
         // POST: /Admin/Post/Create
 
-        [HttpPost]
+        [HttpPost]        
         public ActionResult Create(Post post)
         {
             if (ModelState.IsValid)

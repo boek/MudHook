@@ -14,6 +14,8 @@ namespace MudHook.UI.Controllers
         // GET: /Home/
         private readonly MudHookContext _db = new MudHookContext();
 
+
+        [OutputCache(Duration=10)]
         public ActionResult Index()
         {
             return View(_db.Posts.ToList());
