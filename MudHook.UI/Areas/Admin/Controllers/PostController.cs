@@ -9,6 +9,7 @@ using MudHook.Core;
 
 namespace MudHook.UI.Areas.Admin.Controllers
 { 
+    [Authorize]
     public class PostController : Controller
     {
         private MudHookContext db = new MudHookContext();

@@ -77,4 +77,10 @@ namespace MudHook.Core
         public int Status { get; set; }
         public int RoleId { get; set; }
     }
+    
+    public class Role
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
 }

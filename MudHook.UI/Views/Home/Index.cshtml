@@ -1,32 +1,30 @@
 ﻿@model IEnumerable<MudHook.Core.Post>
 @{
-    ViewBag.Title = "Index";
+    ViewBag.Title = "Index";        
 }
-<section id="content-wrapper">
-			<div id="content">
-				<div id="timeline">
-					<div id="time-line">
-	    			    <div class="timeline-icon-bottom">
-	                        <a href="#" class="icon-totop" style="display: block; "></a>
-						    <span class="tophov">Back to top</span>
-					    </div>   
-					</div>
-					
-					<div id="picture-profile">
-						<a href="/">
-							<img src="@Url.Content("~/Content/Authors/jeffboek.jpg")" alt="">
-						</a>
-					</div>	                															
-												
-										
-					<div id="pagination_post" style="display:none">
-						<div class="newer-page"><a href="/page/3"></a></div>   
-						<div class="older-page"><a href="/page/1"></a></div>     
-					</div>
-					
-					
-					</div></div></div></div></section>
+<section class="content">
 
-@foreach (var p in Model) {     
-    //@p.Title <br />
-}
+ @if (@Model.Count() > 0)
+ { 
+    <ul class="items wrap">
+	    @foreach (var p in @Model)
+        { 
+	    <li>
+		    <a href="#" title="@p.Title">
+			    <time datetime="@p.Created">@Html.DisplayTimePassed(p.Created)</time>
+			    <h2>@p.Title</h2>
+		    </a>
+	    </li>
+	    }
+    </ul>
+
+    <p><?php echo posts_prev(); ?> <?php echo posts_next(); ?></p>
+
+ }
+ else
+ { 
+		<p>Looks like you have some writing to do!</p>
+ }
+
+</section>
+

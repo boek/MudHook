@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
+using System.Data.Entity;
 
 namespace MudHook.UI
 {
@@ -35,6 +36,8 @@ namespace MudHook.UI
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             RegisterRoutes(RouteTable.Routes);
+
+            Database.SetInitializer<MudHook.Core.MudHookContext>(new MudHook.Core.MudHookReset());
         }
     }
 }
