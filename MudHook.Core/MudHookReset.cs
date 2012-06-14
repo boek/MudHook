@@ -42,6 +42,13 @@ namespace MudHook.Core
             context.Comments.Add(new Comment { Id = 1, Date = DateTime.Now, Email = "j@jboek.com", Name = "Jeff Boek", PostId = 1, Status = CommentStatus.Pending, Text = "MY AWESOME COMMENT1" });
             context.Comments.Add(new Comment { Id = 2, Date = DateTime.Now, Email = "j@jboek.com", Name = "Jeff Boek", PostId = 1, Status = CommentStatus.Published, Text = "MY AWESOME COMMENT2" });
             context.Comments.Add(new Comment { Id = 3, Date = DateTime.Now, Email = "j@jboek.com", Name = "Jeff Boek", PostId = 1, Status = CommentStatus.Spam, Text = "MY AWESOME COMMENT3" });
+
+            //Add Meta
+            context.Meta.Add(new Meta { Key = "posts_page", Value = "1" });
+            context.Meta.Add(new Meta { Key = "home_page", Value = "1" });
+            context.Meta.Add(new Meta { Key = "twitter", Value = "jeffboek" });
+            context.Meta.Add(new Meta { Key = "auto_publish_comments", Value = "1" });
+            context.Meta.Add(new Meta { Key = "posts_per_page", Value = "10" });
         }
     }
 }

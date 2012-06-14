@@ -24,6 +24,8 @@ namespace MudHook.Core
         public DbSet<Page> Pages { get; set; }
 
         public DbSet<User> Users { get; set; }
-        public DbSet<Role> Roles { get; set; }        
+        public DbSet<Role> Roles { get; set; }
+
+        public DbSet<Meta> Meta { get; set; }
     }
 }

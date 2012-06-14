@@ -24,6 +24,7 @@ namespace MudHook.Core
 
     public class Meta
     {        
+        [Key]
         public string Key { get; set; }
         public string Value { get; set; }
     }
