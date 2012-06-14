@@ -10,7 +10,7 @@ using MudHook.Core;
 namespace MudHook.UI.Areas.Admin.Controllers
 { 
     [Authorize]
-    public class PostController : Controller
+    public class PostsController : Controller
     {
         private MudHookContext db = new MudHookContext();
 
@@ -50,9 +50,9 @@ namespace MudHook.UI.Areas.Admin.Controllers
                 post.Created = DateTime.Now;
                 post.IsModified = false;
                 post.LastModified = DateTime.Now;
-                post.Status = 1;
+                //post.Status = 1;
                 post.Author = 1;
-                post.Comments = 0;
+                post.CommentsEnabled = true;
 
                 db.Posts.Add(post);
                 db.SaveChanges();

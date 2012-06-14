@@ -52,11 +52,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="HtmlHelpers\DisplayTimePassed.cs" />
-    <Compile Include="Migrations\201206131915071_NewMigration.cs" />
-    <Compile Include="Migrations\201206131915071_NewMigration.Designer.cs">
-      <DependentUpon>201206131915071_NewMigration.cs</DependentUpon>
-    </Compile>
-    <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="MudHook.cs" />
     <Compile Include="MudHookContext.cs" />
     <Compile Include="MudHookMembershipProvider.cs" />

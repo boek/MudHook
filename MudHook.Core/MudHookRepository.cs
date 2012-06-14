@@ -83,7 +83,7 @@ namespace MudHook.Core
                 Password = Convert.ToBase64String(MudHookSecurity.GenerateSaltedHash(Encoding.UTF8.GetBytes(password), Encoding.UTF8.GetBytes(userName))),
                 Email = email,
                 Bio = "",
-                Status = 1,
+                Status = UserStatus.active,
                 RoleId = role.Id
             };
 
@@ -132,6 +132,35 @@ namespace MudHook.Core
                 throw new ArgumentException(MissingUser);
 
             return GetRole(user.RoleId);
+        }
+
+        public IQueryable<Post> GetAllPosts()
+        {
+            return from post in db.Posts
+                   orderby post.Created ascending
+                   select post;
+        }
+        public Post GetPost(int id)
+        {
+            return db.Posts.SingleOrDefault(post => post.Id == id);
+        }
+        public Post GetPost(string slug)
+        {
+            return db.Posts.SingleOrDefault(post => post.Slug == slug);
+        }
+        public void AddPost(Post post)
+        {
+            db.Posts.Add(post);
+        }
+        public void CreatePost()
+        {
+            throw new NotImplementedException();
+        }
+        public IList<Comment> GetCommentsByPost(int id)
+        {
+            return (from comment in db.Comments
+                    where comment.PostId == id                        
+                    select comment).ToList<Comment>();
         }
 
         public bool UserExists(User user)

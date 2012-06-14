@@ -1,0 +1,32 @@
+﻿@model IEnumerable<MudHook.Core.Post>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h1>
+    Posts
+    <a href="#">Create a new post</a>
+</h1>
+<section class="content">
+	@if (Model.Count() > 0)
+     {
+        <ul class="list">
+	        @foreach (var p in Model)
+            {
+	        <li>
+	            <a href="#">
+	                <strong>@p.Title</strong>
+	                <span>Created <time>@p.Created.ToString("dd MMM yyyy")</time> 
+	                by @p.Author</span>
+	            
+	                <i class="status">@p.Status</i>
+	            </a>
+	        </li>
+            }
+        </ul>
+     }
+     else
+     {
+        <p><a href="#">No posts just yet. Why not write a new one?</a></p>
+     }
+</section>

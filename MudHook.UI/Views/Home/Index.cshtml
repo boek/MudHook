@@ -13,6 +13,8 @@
 		    <a href="#" title="@p.Title">
 			    <time datetime="@p.Created">@Html.DisplayTimePassed(p.Created)</time>
 			    <h2>@p.Title</h2>
+                <em>@p.Status</em>
+                <em>@p.Tags.Name</em>
 		    </a>
 	    </li>
 	    }

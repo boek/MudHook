@@ -1,0 +1,57 @@
+﻿@{
+    Layout = null;
+}
+
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>@ViewBag.Title</title>
+
+		<link href="@Url.Content("~/Areas/Admin/Themes/Default/css/admin.css")" rel="stylesheet" type="text/css" />
+		<link href="@Url.Content("~/Areas/Admin/Themes/Default/css/popup.css")" rel="stylesheet" type="text/css" />
+
+
+        <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/lib.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/helpers.js")" type="text/javascript"></script>
+        <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/popup.js")" type="text/javascript"></script>		
+		<script>		    //var Base_url = '<?php echo admin_url(); ?>';</script>
+	</head>
+	<body>
+		<header id="top">
+			<a id="logo" href="#">
+				<img src="@Url.Content("~/Areas/Admin/Themes/Default/img/logo.png")" alt="MudHook">
+			</a>			
+			<nav>
+				<ul>					
+					<li class="active">
+						<a href="#">Nav Item</a>
+					</li>					
+				</ul>
+			</nav>
+
+			<p>Logged in as <strong>real_name</strong>. 
+			<a href="#">logout</a></li>			
+		</header>
+        @RenderBody()	
+	    <aside id="sidebar">
+		    <h2>Status check</h2>				    
+		    <p>		    
+			    Oh no, we found a problem		    			    		    
+		    </p>
+		
+		    <ul>			    
+			    <li>Error</li>			    
+		    </ul>		    
+			<p>Nice job, keep on going!</p>     		    
+	    </aside>	    
+	    <footer id="bottom">
+		    <small>
+                Powered by Anchor, version 0.1 
+		        <a href="#">Visit your site</a>.
+		    </small>
+		
+		    <em>Make blogging beautiful.</em>
+	    </footer>	    
+	</body>
+</html>

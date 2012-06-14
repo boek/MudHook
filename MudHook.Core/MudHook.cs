@@ -1,22 +1,21 @@
-﻿// -----------------------------------------------------------------------
-// <copyright file="MudHook.cs" company="Microsoft">
-// TODO: Update copyright text.
-// </copyright>
-// -----------------------------------------------------------------------
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.ComponentModel.DataAnnotations;
 
 namespace MudHook.Core
-{
-    using System;
-    using System.Collections.Generic;
-    using System.Linq;
-    using System.Text;
-    
-
+{            
     public class Comment
     {                
         public int Id { get; set; }
         public int PostId { get; set; }
-        public int Status { get; set; }
+        public int CommentStatusValue { get; set; }
+        public CommentStatus Status
+        {
+            get { return (CommentStatus)CommentStatusValue; }
+            set { CommentStatusValue = (int)value; }
+        }
         public DateTime Date { get; set; }
         public string Name { get; set; }
         public string Email { get; set; }
@@ -24,19 +23,23 @@ namespace MudHook.Core
     }
 
     public class Meta
-    {
+    {        
         public string Key { get; set; }
         public string Value { get; set; }
     }
 
     public class Page
     {
-        public int Id { get; set; }
+        public int Id { get; set; }        
         public string Slug { get; set; }
         public string Name { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public int Status { get; set; }
+        public int PostStatusValue;
+        public PostStatus Status {
+            get { return (PostStatus)PostStatusValue; }
+            set { PostStatusValue = (int)value; } 
+        }
         public string Redirect { get; set; }
     }
 
@@ -49,8 +52,8 @@ namespace MudHook.Core
     public class Post
     {
         public int Id { get; set; }
-        public int TagId { get; set; }
-        public string Title { get; set; }
+        public int TagId { get; set; }        
+        public string Title { get; set; }        
         public string Slug { get; set; }
         public string Description { get; set; }
         public string Html { get; set; }
@@ -61,20 +64,32 @@ namespace MudHook.Core
         public bool IsModified { get; set; }
         public DateTime LastModified { get; set; }
         public int Author { get; set; }
-        public int Status { get; set; }
-        public int Comments { get; set; }
+        public int PostStatusValue{ get; set; }
+        public PostStatus Status { 
+            get { return (PostStatus) PostStatusValue; }
+            set { PostStatusValue = (int)value; }
+        }
+        public bool CommentsEnabled { get; set; }
+
+        public virtual Tag Tags { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }
     }
 
     public class User
     {
-        public int Id { get; set; }
+        public int Id { get; set; }        
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
-        public string Bio { get; set; }
-        public int Status { get; set; }
+        public string Bio { get; set; }        
+        public int UserStatusValue { get; set; }
+        public UserStatus Status
+        {
+            get { return (UserStatus)UserStatusValue; }
+            set { UserStatusValue = (int)value; }
+        }
         public int RoleId { get; set; }
     }
     
@@ -82,5 +97,23 @@ namespace MudHook.Core
     {
         public int Id { get; set; }
         public string Name { get; set; }
+    }
+
+    public enum PostStatus
+    {
+        draft = 1,
+        archived = 2,
+        published = 3
+    }
+    public enum CommentStatus
+    {
+        Pending = 1,
+        Published = 2,
+        Spam = 3
+    }
+    public enum UserStatus
+    {
+        inactive = 1,
+        active = 2
     }
 }

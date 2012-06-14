@@ -1,0 +1,224 @@
+﻿@model MudHook.Core.Post
+
+@{
+    ViewBag.Title = "Edit";
+    int Pending = 0;
+    foreach(var c in Model.Comments)
+    {
+        if(c.Status != 1)
+        {
+            Pending++;
+        }
+    }
+}
+
+<h1>Editing &ldquo;@Model.Title&rdquo;</h1>
+
+<section class="content">
+	<nav class="tabs">
+		<ul>
+			<li><a href="#post">Post</a></li>
+			<li><a href="#customise">Customise</a></li>
+			<li><a href="#fields">Custom Fields</a></li>
+			<li>
+				<a href="#comments">Comments				
+					@if (@Pending > 0)
+                    {
+                        <span title="You have @Pending comments">@Pending</span>
+                    }
+				</a>
+			</li>
+		</ul>
+	</nav>
+@using (Html.BeginForm())
+{    		
+		<div data-tab="post" class="tab">
+
+			<fieldset>
+				<p>
+					@Html.LabelFor(model => model.Title)
+       
+                    @Html.EditorFor(model => model.Title)
+                    @Html.ValidationMessageFor(model => model.Title)					
+					<em>Your post&rsquo;s title.</em>
+				</p>
+				
+				<p>
+					@Html.LabelFor(model => model.Created)
+       
+                    @Html.EditorFor(model => model.Created)
+                    @Html.ValidationMessageFor(model => model.Created)
+					<em>The date your post will be published. Uses <code><a href="http://php.net/manual/en/function.strtotime.php">strtotime()</a></code></em>
+				</p>
+
+				<p>
+					@Html.LabelFor(model => model.Slug)
+       
+                    @Html.EditorFor(model => model.Slug)
+                    @Html.ValidationMessageFor(model => model.Slug)
+					<em>The slug for your post.</em>
+				</p>
+				
+				<p>
+					@Html.LabelFor(model => model.Description)
+       
+                    @Html.TextAreaFor(model => model.Description, new { @id = "description" })
+                    @Html.ValidationMessageFor(model => model.Description)
+					<em>A brief outline of what your post is about.</em>
+				</p>
+				
+				<p>
+					@Html.LabelFor(model => model.Html)
+       
+                    @Html.EditorFor(model => model.Html)
+                    @Html.ValidationMessageFor(model => model.Html)
+					<em>Your post's main content. Enjoys a healthy dose of valid HTML.</em>
+				</p>
+				
+				<p>
+					@Html.LabelFor(model => model.Status)
+       
+                    @Html.EditorFor(model => model.Status)
+                    @Html.ValidationMessageFor(model => model.Status)
+					
+					<em>Statuses: live (published), pending (draft), or hidden (archived)</em>
+				</p>
+				
+				<p>
+					@Html.LabelFor(model => model.Comments)
+       
+                    @Html.EditorFor(model => model.Comments)
+                    @Html.ValidationMessageFor(model => model.Comments)
+					<em>This will allow users to comment on your posts.</em>
+				</p>
+			</fieldset>
+		
+		</div>
+		<div data-tab="customise" class="tab">
+
+			<fieldset>
+				<legend>Customise</legend>
+				<em>Here, you can customise your posts. This section is optional.</em>
+				
+				<p>
+					@Html.LabelFor(model => model.Css)
+       
+                    @Html.TextAreaFor(model => model.Css)
+                    @Html.ValidationMessageFor(model => model.Css)
+					<em>Custom CSS. Will be wrapped in a <code>&lt;style&gt;</code> block.</em>
+				</p>
+
+				<p>
+					@Html.LabelFor(model => model.Js)
+       
+                    @Html.TextAreaFor(model => model.Js)
+                    @Html.ValidationMessageFor(model => model.Js)
+					<em>Custom Javascript. Will be wrapped in a <code>&lt;script&gt;</code> block.</em>
+				</p>
+			</fieldset>
+		
+		</div>
+		<div data-tab="fields" class="tab">
+
+			<fieldset>
+				<legend>Custom Fields</legend>
+				<em>Create custom fields here.</em>
+
+				<div id="fields">
+					<!-- Re-Populate data -->					
+					<p>
+						<label>Key</label>
+						<input name="Value" value="Value">
+					</p>					
+					
+					<!-- Re-Populate post data -->										
+					<p>
+						<label>Key</label>
+						<input name="Value" value="Value">
+					</p>					
+				</div>
+				
+				
+				<button id="create" type="button">Create a custom field</button>
+			</fieldset>
+		
+		</div>
+		<div data-tab="comments" class="tab">
+
+			<fieldset>
+				<legend>Comments</legend>
+				<em>Here, you can moderate your comments.</em>
+
+				@if (@Model.Comments.Count > 0)
+    {
+				<ul id="comments">
+				@foreach (var c in Model.Comments)
+    {
+				<li id="c<?php echo $comment->id; ?>">
+					<header>
+						<p><strong>@c.Name</strong> 
+						@c.Date.ToString("dd MMM yyyy")<br>						
+						<em>
+							Status: 
+							<span class="status">
+								@c.Status
+							</span>
+						</em></p>
+					</header>
+					
+					<p class="comment">@c.Text</p>
+					
+					<ul class="options">
+						@if (c.Status != 1)
+      {
+						    <li><a href="#publish">Publish</a></li>
+      } 
+						<li><a href="#edit">Edit</a></li>
+						<li><a href="#delete">Delete</a></li>
+					</ul>
+				</li>
+    }
+				</ul>
+    }
+    else
+    {
+				    <p>No comments yet.</p>
+    }
+			</fieldset>
+		</div>
+
+		<p class="buttons">
+			<button name="save" type="submit">Save</button>
+			<button name="delete" type="submit">Delete</button>
+			<a href="#">Return to posts</a>
+		</p>
+		
+}
+</section>
+
+<aside id="sidebar">
+	<h2>Editing</h2>
+	<em>Some useful links.</em>
+	<ul>
+		<li><a href="#">View this post on your site</a></li>
+	</ul>
+</aside>
+
+<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/textareas.js")></script>
+<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/custom_fields.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/comments.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/tabs.js")"></script>
+
+<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/confirm.js")"></script>
+<script>
+    // confirm for deletions
+    $('button[name=delete]').bind('click', function (event) {
+        Confirm.open(function () {
+            var form = $('form'), input = new Element('input', { 'type': 'hidden', 'name': 'delete' });
+            form.append(input);
+            form.submit();
+        });
+        event.end();
+    });
+</script>
+    
