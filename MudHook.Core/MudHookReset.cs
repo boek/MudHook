@@ -23,8 +23,8 @@ namespace MudHook.Core
 
             //Create Posts
             context.Posts.Add(new Post { Id = 1, TagId = 1, Title = "Test1", Slug = "Test1", Description = "Description for Post 1", Html = "<p>Post numba 1!", Css = "", Js = "", CustomFields = "", Created = new DateTime(2011, 12, 25), IsModified = false, LastModified = new DateTime(2012, 5, 1), Author = 1, Status = PostStatus.published, CommentsEnabled = true });
-            context.Posts.Add(new Post { Id = 2, TagId = 2, Title = "Test2", Slug = "Test1", Description = "Description for Post 1", Html = "<p>Post numba 1!", Css = "", Js = "", CustomFields = "", Created = new DateTime(2012, 3, 10), IsModified = false, LastModified = new DateTime(2012, 5, 1), Author = 1, Status = PostStatus.draft, CommentsEnabled = true });
-            context.Posts.Add(new Post { Id = 3, TagId = 2, Title = "Test3", Slug = "Test1", Description = "Description for Post 1", Html = "<p>Post numba 1!", Css = "", Js = "", CustomFields = "", Created = new DateTime(2012, 4, 15), IsModified = false, LastModified = new DateTime(2012, 5, 1), Author = 1, Status = PostStatus.archived, CommentsEnabled = true });
+            context.Posts.Add(new Post { Id = 2, TagId = 2, Title = "Test2", Slug = "Test2", Description = "Description for Post 1", Html = "<p>Post numba 1!", Css = "", Js = "", CustomFields = "", Created = new DateTime(2012, 3, 10), IsModified = false, LastModified = new DateTime(2012, 5, 1), Author = 1, Status = PostStatus.draft, CommentsEnabled = true });
+            context.Posts.Add(new Post { Id = 3, TagId = 2, Title = "Test3", Slug = "Test3", Description = "Description for Post 1", Html = "<p>Post numba 1!", Css = "", Js = "", CustomFields = "", Created = new DateTime(2012, 4, 15), IsModified = false, LastModified = new DateTime(2012, 5, 1), Author = 1, Status = PostStatus.archived, CommentsEnabled = true });
             //context.Posts.Add(new Post { Id = 4, TagId = 2, Title = "Test4", Slug = "Test1", Description = "Description for Post 1", Html = "<p>Post numba 1!", Css = "", Js = "", CustomFields = "", Created = new DateTime(2012, 4, 20), IsModified = false, LastModified = new DateTime(2012, 5, 1), Author = 1, Status = 1, CommentsEnabled = true });
             //context.Posts.Add(new Post { Id = 5, TagId = 2, Title = "Test5", Slug = "Test1", Description = "Description for Post 1", Html = "<p>Post numba 1!", Css = "", Js = "", CustomFields = "", Created = new DateTime(2012, 4, 25), IsModified = false, LastModified = new DateTime(2012, 5, 1), Author = 1, Status = 1, CommentsEnabled = true });
             //context.Posts.Add(new Post { Id = 6, TagId = 2, Title = "Test6", Slug = "Test1", Description = "Description for Post 1", Html = "<p>Post numba 1!", Css = "", Js = "", CustomFields = "", Created = new DateTime(2012, 4, 30), IsModified = false, LastModified = new DateTime(2012, 5, 1), Author = 1, Status = 1, CommentsEnabled = true });
@@ -44,11 +44,18 @@ namespace MudHook.Core
             context.Comments.Add(new Comment { Id = 3, Date = DateTime.Now, Email = "j@jboek.com", Name = "Jeff Boek", PostId = 1, Status = CommentStatus.Spam, Text = "MY AWESOME COMMENT3" });
 
             //Add Meta
-            context.Meta.Add(new Meta { Key = "posts_page", Value = "1" });
-            context.Meta.Add(new Meta { Key = "home_page", Value = "1" });
-            context.Meta.Add(new Meta { Key = "twitter", Value = "jeffboek" });
-            context.Meta.Add(new Meta { Key = "auto_publish_comments", Value = "1" });
-            context.Meta.Add(new Meta { Key = "posts_per_page", Value = "10" });
+            context.Meta.Add(new Meta { Key = "PostsPage", Value = "posts" });
+            context.Meta.Add(new Meta { Key = "HomePage", Value = "about" });
+            context.Meta.Add(new Meta { Key = "Twitter", Value = "jeffboek" });
+            context.Meta.Add(new Meta { Key = "AutPublishComments", Value = "1" });
+            context.Meta.Add(new Meta { Key = "PostsPerPage", Value = "10" });
+            context.Meta.Add(new Meta { Key = "SiteName", Value = "My First MudHook Blogs" });
+            context.Meta.Add(new Meta { Key = "SiteDescription", Value = "It's not just any blog. It's MudHook CMS" });
+            context.Meta.Add(new Meta { Key = "Theme", Value = "default" });
+
+            //Add Pages
+            context.Pages.Add(new Page { Id = 1, Slug = "posts", Name = "Posts", Title = "My posts and thoughts", Content = "<p>Welcome!</p>", Status = PostStatus.published });
+            context.Pages.Add(new Page{Id = 1, Slug = "about", Name = "About", Title = "A little bit about me", Content = "<p>This is a little bit of text about me.</p>", Status = PostStatus.published });
         }
     }
 }

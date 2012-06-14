@@ -10,17 +10,15 @@
 	    @foreach (var p in @Model)
         { 
 	    <li>
-		    <a href="#" title="@p.Title">
+		    <a href="@Url.RouteUrl("post", new { slug = @p.Slug })" title="@p.Title">
 			    <time datetime="@p.Created">@Html.DisplayTimePassed(p.Created)</time>
 			    <h2>@p.Title</h2>
-                <em>@p.Status</em>
-                <em>@p.Tags.Name</em>
 		    </a>
 	    </li>
 	    }
     </ul>
 
-    <p><?php echo posts_prev(); ?> <?php echo posts_next(); ?></p>
+    <p>Prev Next</p>
 
  }
  else

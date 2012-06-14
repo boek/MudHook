@@ -1,0 +1,13 @@
+﻿@model IEnumerable<MudHook.Core.Page>
+<nav id="main" role="navigation">
+	<ul>	
+    @foreach (var p in Model)
+    { 
+        <li>
+		    <a href="@Url.RouteUrl("page", new{ slug = @p.Slug})" title="Title">
+			    @p.Name
+		    </a>
+	    </li>				
+    }				               	
+    </ul>
+</nav>			

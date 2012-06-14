@@ -6,6 +6,7 @@ using System.Web.Mvc;
 
 namespace MudHook.UI.Areas.Admin.Controllers
 {
+    [Authorize]
     public class DashboardController : Controller
     {
         //

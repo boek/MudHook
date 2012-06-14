@@ -1,0 +1,18 @@
+﻿@model MudHook.Core.Post
+
+@{
+    ViewBag.Title = "article";
+}
+
+<section class="content" id="article-@Model.Id">
+    <h1>@Model.Title</h1>
+	
+	<article>
+	    @Html.Raw(@Model.Html)
+	</article>
+</section>
+
+<section class="footnote">
+	<p>This article is my @Model.Id oldest. It is @Model.Html.Count() words long.</p>
+</section>
+

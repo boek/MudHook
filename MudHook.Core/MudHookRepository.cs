@@ -10,7 +10,7 @@ namespace MudHook.Core
 {    
     public class MudHookRepository
     {
-        private MudHookContext db = new MudHookContext();
+        private MudHookContext db = new MudHookContext();        
 
         #region Error Messages
             private const string MissingRole = "Role does not exist";
@@ -162,6 +162,26 @@ namespace MudHook.Core
                     where comment.PostId == id                        
                     select comment).ToList<Comment>();
         }
+
+        public IQueryable<Page> GetAllPages()
+        {
+            return from page in db.Pages
+                   select page;
+        }
+        public Page GetPage(int id)
+        {
+            return db.Pages.FirstOrDefault(page => page.Id == id);
+        }
+        public Page GetPage(string slug)
+        {
+            return db.Pages.FirstOrDefault(page => page.Slug == slug);
+        }          
+
+        public Meta GetMeta(string key)
+        {
+            return db.Meta.FirstOrDefault(m => m.Key == key);
+        }
+
 
         public bool UserExists(User user)
         {

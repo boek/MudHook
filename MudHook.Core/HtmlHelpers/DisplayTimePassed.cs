@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Web.Mvc;
 
-namespace MudHook.Core.HtmlHelpers
+namespace System.Web.Mvc.Html
 {    
     public static class HtmlHelpers
     {
