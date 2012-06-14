@@ -32,12 +32,12 @@ namespace MudHook.Core
             routes.MapRoute(
                 "post", // Route name
                 postPage + "/{slug}", // URL with parameters
-                new { controller = "Home", action = "article", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Home", action = "Article", id = UrlParameter.Optional } // Parameter defaults
             );
             routes.MapRoute(
                 "page", // Route name
                 "{slug}", // URL with parameters
-                new { controller = "Home", action = "Index", slug = homePage } // Parameter defaults
+                new { controller = "Home", action = "Page", slug = homePage } // Parameter defaults
             );
 
             routes.MapRoute(

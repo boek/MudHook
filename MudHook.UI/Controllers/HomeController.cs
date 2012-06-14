@@ -12,9 +12,14 @@ namespace MudHook.UI.Controllers
     {
         //
         // GET: /Home/
-        private MudHookRepository repo = new MudHookRepository();
-        
-        public ActionResult Index(string slug)
+        private MudHookRepository repo = new MudHookRepository();                
+
+        public ActionResult Article(string slug)
+        {
+            return View(repo.GetPost(slug));
+        }
+
+        public ActionResult Page(string slug)
         {
             if (slug.ToLower() == MetaData.PostsPage.ToLower())
                 return View("listPosts", repo.GetAllPosts());
@@ -22,14 +27,9 @@ namespace MudHook.UI.Controllers
                 return View("page", repo.GetPage(slug));
         }
 
-        public ActionResult article(string slug)
+        public ActionResult Search(string term)
         {
-            return View(repo.GetPost(slug));
-        }
-
-        public ActionResult page(string slug)
-        {
-            return View(repo.GetPage(slug));
+            return View();
         }
 
         public ActionResult RenderNavigation()

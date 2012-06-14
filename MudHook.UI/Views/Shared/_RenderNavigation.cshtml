@@ -1,10 +1,15 @@
 ﻿@model IEnumerable<MudHook.Core.Page>
+@{
+    string currentPage = (string)ViewContext.RouteData.Values["slug"];
+}           
 <nav id="main" role="navigation">
 	<ul>	
     @foreach (var p in Model)
     { 
-        <li>
-		    <a href="@Url.RouteUrl("page", new{ slug = @p.Slug})" title="Title">
+        <li @if(currentPage == p.Slug){
+                @:class="active"
+                }>
+		    <a href="@Url.RouteUrl("page", new{ slug = @p.Slug})" title="@p.Title">                
 			    @p.Name
 		    </a>
 	    </li>				
