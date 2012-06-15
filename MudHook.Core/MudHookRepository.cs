@@ -102,7 +102,7 @@ namespace MudHook.Core
             }
 
             Save();
-        }        
+        }                
 
         public IQueryable<Role> GetAllRoles()
         {
@@ -155,6 +155,12 @@ namespace MudHook.Core
         public void CreatePost()
         {
             throw new NotImplementedException();
+        }
+        public IQueryable<Post> SearchPosts(string term)
+        {
+            return from post in db.Posts
+                   where post.Html.Contains(term)
+                   select post;
         }
         public IList<Comment> GetCommentsByPost(int id)
         {

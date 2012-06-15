@@ -12,7 +12,7 @@ namespace MudHook.UI.Controllers
     {
         //
         // GET: /Home/
-        private MudHookRepository repo = new MudHookRepository();                
+        private MudHookRepository repo = new MudHookRepository();        
 
         public ActionResult Article(string slug)
         {
@@ -28,12 +28,13 @@ namespace MudHook.UI.Controllers
         }
 
         public ActionResult Search(string term)
-        {
-            return View();
+        {            
+            ViewBag.term = term;
+            return View(repo.SearchPosts(term));
         }
 
         public ActionResult RenderNavigation()
-        {
+        {             
             return PartialView("_RenderNavigation", repo.GetAllPages());
         }
     }

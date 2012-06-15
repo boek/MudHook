@@ -5,7 +5,7 @@ using System.Globalization;
 using System.Web.Mvc;
 using System.Web.Security;
 
-namespace MudHook.UI.Models
+namespace MudHook.UI.Areas.Admin.Models
 {
 
     public class ChangePasswordModel

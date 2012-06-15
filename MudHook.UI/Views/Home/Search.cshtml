@@ -1,5 +1,31 @@
-﻿@{
+﻿@model IQueryable<MudHook.Core.Post>
+@{
     ViewBag.Title = "Search";
 }
 
-<h2>Search</h2>
+<section class="content">
+    
+    @if (Model.Count() > 0)
+    {
+    <h1>You searched for &ldquo;@ViewBag.term&rdquo;.</h1>        
+        <p>We found @Model.Count() result for &ldquo;@ViewBag.term&rdquo;</p>
+        <ul class="items wrap">		        	
+		@foreach (var p in @Model)
+        { 
+	        <li>
+		        <a href="@Url.RouteUrl("post", new { slug = @p.Slug })" title="@p.Title">
+			        <time datetime="@p.Created">@Html.DisplayTimePassed(p.Created)</time>
+			        <h2>@p.Title</h2>
+		        </a>
+	        </li>
+	    }			
+        </ul>
+        <p>PREV NEXT</p>
+    }
+    else
+    {
+        <p>Unfortunately, there's no results for &ldquo;@ViewBag.term&rdquo;. Did you spell everything correctly?</p>    
+    }
+    
+</section>
+

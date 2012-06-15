@@ -5,10 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
 using System.Web.Security;
-using MudHook.UI.Models;
+using MudHook.UI.Areas.Admin.Models;
 using MudHook.Core;
 
-namespace MudHook.UI.Controllers
+namespace MudHook.UI.Areas.Admin.Controllers
 {
     public class AccountController : Controller
     {

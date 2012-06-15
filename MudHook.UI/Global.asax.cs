@@ -21,8 +21,8 @@ namespace MudHook.UI
 
         protected void Application_Start()
         {
-            Database.SetInitializer<MudHook.Core.MudHookContext>(new MudHook.Core.MudHookReset());
             AreaRegistration.RegisterAllAreas();
+            Database.SetInitializer<MudHook.Core.MudHookContext>(new MudHook.Core.MudHookReset());            
 
             RegisterGlobalFilters(GlobalFilters.Filters);
             MudHookRoutes.RegisterRoutes(RouteTable.Routes);            
