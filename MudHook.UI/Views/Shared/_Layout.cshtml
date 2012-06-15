@@ -4,8 +4,7 @@
 		<meta charset="utf-8">
         <title>@ViewBag.Title</title>
         <link href="@Url.Content("~/Content/reset.css")" rel="stylesheet" type="text/css" />
-        <link href="@Url.Content("~/Themes/default/css/default.css")" rel="stylesheet" type="text/css" />        
-        <script src="@Url.Content("~/Scripts/jquery-1.5.1.min.js")" type="text/javascript"></script>      
+        <link href="@Url.Content("~/Themes/default/css/default.css")" rel="stylesheet" type="text/css" />                      
         <script>var base = "@Url.Content("~/Themes/default/")";</script>  
         <script src="@Url.Content("~/Themes/default/js/main.js")" type="text/javascript"></script>
         <link rel="shortcut icon" href="@Url.Content("~/Themes/Default/images/favicon.png")">
@@ -34,16 +33,14 @@
 
 <body>
 	@using (Html.BeginForm("search", "Home", FormMethod.Post, new { id = "search" }))
- { 
+    { 
 		@:<input type="search" name="term" placeholder="To search, type and hit enter&hellip;" value="SEARCH TERM">
 	}
 	
 	<header id="top">
-		<div class="wrap">
-				
+		<div class="wrap">			
 			<a id="logo" href="@Url.RouteUrl("page", new{slug = @MetaData.HomePage})">@MetaData.SiteName</a>				
-            @Html.Action("RenderNavigation")
-            
+            @Html.Action("RenderNavigation")            
 		</div>
 	</header>    
 
@@ -59,7 +56,7 @@
                     { 
                         <li><a href="http://twitter.com/@MetaData.TwitterAccount/">@@@MetaData.TwitterAccount</a></li>                                        
                     }
-                    <li>@Html.ActionLink("Admin Area", "Dashboard", "Admin")</li>
+                    <li><a href="@Html.AdminUrl()">Admin Area</a></li>
                    
                     <li><a href="/" title="Return to my website.">Home</a></li>                    
                 </ul>

@@ -10,7 +10,7 @@ using MudHook.Core;
 
 namespace MudHook.UI.Areas.Admin.Controllers
 {
-    public class AccountController : Controller
+    public class UsersController : Controller
     {
 
         public MudHookMembershipProvider MembershipService { get; set; }
@@ -24,18 +24,12 @@ namespace MudHook.UI.Areas.Admin.Controllers
                 AuthorizationService = new MudHookRoleProvider();
 
             base.Initialize(requestContext);
-        }
-
-        //
-        // GET: /Account/LogOn
+        }    
 
         public ActionResult LogOn()
         {
             return View();
         }
-
-        //
-        // POST: /Account/LogOn
 
         [HttpPost]
         public ActionResult LogOn(LogOnModel model, string returnUrl)
@@ -52,7 +46,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
                     }
                     else
                     {
-                        return RedirectToAction("Index", "Home");
+                        return RedirectToAction("Index", "Posts");
                     }
                 }
                 else
@@ -60,13 +54,9 @@ namespace MudHook.UI.Areas.Admin.Controllers
                     ModelState.AddModelError("", "The user name or password provided is incorrect.");
                 }
             }
-
-            // If we got this far, something failed, redisplay form
+            
             return View(model);
         }
-
-        //
-        // GET: /Account/LogOff
 
         public ActionResult LogOff()
         {
@@ -75,23 +65,17 @@ namespace MudHook.UI.Areas.Admin.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        //
-        // GET: /Account/Register
-
         public ActionResult Register()
         {
             return View();
         }
-
-        //
-        // POST: /Account/Register
 
         [HttpPost]
         public ActionResult Register(RegisterModel model)
         {
             if (ModelState.IsValid)
             {
-                // Attempt to register the user
+                
                 try
                 {
                     MembershipService.CreateUser(model.UserName, model.FirstName, model.LastName, model.Password, model.Email, "Member");
@@ -104,22 +88,16 @@ namespace MudHook.UI.Areas.Admin.Controllers
                     ModelState.AddModelError("", ae.Message);
                 }
             }
-
-            // If we got this far, something failed, redisplay form
+            
             return View(model);
         }
-
-        //
-        // GET: /Account/ChangePassword
+       
 
         [Authorize]
         public ActionResult ChangePassword()
         {
             return View();
         }
-
-        //
-        // POST: /Account/ChangePassword
 
         [Authorize]
         [HttpPost]
@@ -133,13 +111,9 @@ namespace MudHook.UI.Areas.Admin.Controllers
                 else
                     ModelState.AddModelError("", "The current password is incorrect or the new password is invalid.");
             }
-
-            // If we got this far, something failed, redisplay form
+            
             return View(model);
-        }
-
-        //
-        // GET: /Account/ChangePasswordSuccess
+        }        
 
         public ActionResult ChangePasswordSuccess()
         {

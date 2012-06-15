@@ -53,26 +53,48 @@ namespace MudHook.Core
     public class Post
     {
         public int Id { get; set; }
+
         public int TagId { get; set; }        
+
         public string Title { get; set; }        
+
         public string Slug { get; set; }
+
         public string Description { get; set; }
+
+        [Display(Name = "Content")]
         public string Html { get; set; }
+
+        [Display(Name = "Custom CSS")]
         public string Css { get; set; }
+
+        [Display(Name = "Custom JS")]
         public string Js { get; set; }
+
         public string CustomFields { get; set; }
+
+        [Display(Name = "Date")]
         public DateTime Created { get; set; }
+        
         public bool IsModified { get; set; }
+        
         public DateTime LastModified { get; set; }
+        
         public int Author { get; set; }
+        
         public int PostStatusValue{ get; set; }
+        
         public PostStatus Status { 
             get { return (PostStatus) PostStatusValue; }
             set { PostStatusValue = (int)value; }
         }
+
+        [Display(Name = "Allow Comments")]
         public bool CommentsEnabled { get; set; }
 
+        
         public virtual Tag Tags { get; set; }
+        
         public virtual ICollection<Comment> Comments { get; set; }
     }
 

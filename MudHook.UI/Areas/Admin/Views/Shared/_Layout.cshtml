@@ -31,18 +31,8 @@
 			</nav>
             @Html.Partial("_LogOnPartial")
 		</header>
-        @RenderBody()	
-	    <aside id="sidebar">
-		    <h2>Status check</h2>				    
-		    <p>		    
-			    Oh no, we found a problem		    			    		    
-		    </p>
-		
-		    <ul>			    
-			    <li>Error</li>			    
-		    </ul>		    
-			<p>Nice job, keep on going!</p>     		    
-	    </aside>	    
+        @RenderBody()
+        @Html.Partial("_SideBarPartial")	    
 	    <footer id="bottom">
 		    <small>
                 Powered by Anchor, version 0.1 

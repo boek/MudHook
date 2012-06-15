@@ -34,7 +34,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
         //
         // GET: /Admin/Post/Create
 
-        public ActionResult Create()
+        public ActionResult Add()
         {
             return View();
         } 
@@ -43,7 +43,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
         // POST: /Admin/Post/Create
 
         [HttpPost]        
-        public ActionResult Create(Post post)
+        public ActionResult Add(Post post)
         {
             if (ModelState.IsValid)
             {
@@ -87,19 +87,10 @@ namespace MudHook.UI.Areas.Admin.Controllers
         }
 
         //
-        // GET: /Admin/Post/Delete/5
- 
-        public ActionResult Delete(int id)
-        {
-            Post post = db.Posts.Find(id);
-            return View(post);
-        }
-
-        //
         // POST: /Admin/Post/Delete/5
 
         [HttpPost, ActionName("Delete")]
-        public ActionResult DeleteConfirmed(int id)
+        public ActionResult Delete(int id)
         {            
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);

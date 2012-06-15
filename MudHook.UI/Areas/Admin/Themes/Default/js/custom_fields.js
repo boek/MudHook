@@ -30,11 +30,11 @@
 			errors = [];
 
 		if(!label.val()) {
-			errors.push(Lang.get('missing_label'));
+			errors.push(missing_label);
 		}
 		
 		if(!key.val()) {
-			errors.push(Lang.get('missing_key'));
+			errors.push(missing_key);
 		}
 		
 		if(errors.length) {
@@ -51,11 +51,11 @@
 	};
 
 	var show_add_field = function() {
-		var html = '<fieldset><legend>' + Lang.get('custom_field') + '</legend><em>' + Lang.get('custom_field_explain') + '</em>';
-		html +='<p><label>' + Lang.get('label') + '</label><input name="field_label" type="text"></p>';
-		html +='<p><label>' + Lang.get('key') + '</label><input name="field_key" type="text"></p>';
+		var html = '<fieldset><legend>custom_field</legend><em>custom_field_explain</em>';
+		html +='<p><label>label</label><input name="field_label" type="text"></p>';
+		html +='<p><label>key</label><input name="field_key" type="text"></p>';
 		html += '</fieldset>';
-		html +='<p class="buttons"><button name="create" type="button">' + Lang.get('create') + '</button> <a href="#close">' + Lang.get('close') + '</a></p>';
+		html +='<p class="buttons"><button name="create" type="button">create</button> <a href="#close">close</a></p>';
 		
 		var box = new Element('div');
 		box.addClass('popup_wrapper');

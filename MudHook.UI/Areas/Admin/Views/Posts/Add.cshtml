@@ -1,26 +1,17 @@
 ﻿@model MudHook.Core.Post
 
 @{
-	ViewBag.Title = "Edit";
-	int Pending = 0;
-	foreach(var c in Model.Comments)
-	{
-		if(c.Status != CommentStatus.Published)
-		{
-			Pending++;
-		}
-	}    
+	ViewBag.Title = "Edit";	
 }
 
-<h1>Editing &ldquo;@Model.Title&rdquo;</h1>
+<h1>Add a Post</h1>
 
 <section class="content">
 	<nav class="tabs">
 		<ul>
 			<li><a href="#post">Post</a></li>
 			<li><a href="#customise">Customise</a></li>
-			<li><a href="#fields">Custom Fields</a></li>
-			<li><a href="#comments">Comments @if (@Pending > 0){<span title="You have @Pending comments">@Pending</span>}</a></li>
+			<li><a href="#fields">Custom Fields</a></li>			
 		</ul>
 	</nav>
 @using (Html.BeginForm())
@@ -128,71 +119,17 @@
 				<button id="create" type="button">Create a custom field</button>
 			</fieldset>
 		
-		</div>
-		<div data-tab="comments" class="tab">
+		</div>		
 
-			<fieldset>
-				<legend>Comments</legend>
-				<em>Here, you can moderate your comments.</em>
-
-				@if (@Model.Comments.Count > 0)
-				{
-				    <ul id="comments">
-				    @foreach (var c in Model.Comments)
-				    {
-				        <li id="c<?php echo $comment->id; ?>">
-					        <header>
-						        <p><strong>@c.Name</strong> 
-						        @c.Date.ToString("dd MMM yyyy")<br>						
-						        <em>
-							        Status: 
-							        <span class="status">
-								        @c.Status
-							        </span>
-						        </em></p>
-					        </header>
-					
-					        <p class="comment">@c.Text</p>
-					
-					        <ul class="options">
-						        @if (c.Status != CommentStatus.Published)
-				                {
-							        <li><a href="#publish">Publish</a></li>
-	                            } 
-						        <li><a href="#edit">Edit</a></li>
-						        <li><a href="#delete">Delete</a></li>
-					        </ul>
-				        </li>
-	                }
-				    </ul>
-	            }
-	            else
-	            {
-				    <p>No comments yet.</p>
-	            }
-			</fieldset>
-		</div>
-
-		<p class="buttons">			          
-            <button name="save" type="submit">Save</button>
-			<button name="delete" type="submit">Delete</button>  
+		<p class="buttons">
+			<button type="submit">Create</button>			
 			<a href="#">Return to posts</a>
 		</p>
 		
 }
 </section>
 
-
-
-<aside id="sidebar">
-	<h2>Editing</h2>
-	<em>Some useful links.</em>
-	<ul>
-		<li><a href="#">View this post on your site</a></li>
-	</ul>
-</aside>
-
-<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/textareas.js")"></script>
+<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/textareas.js")></script>
 <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/custom_fields.js")"></script>
 <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/comments.js")"></script>
 <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/tabs.js")"></script>
@@ -202,8 +139,8 @@
     // confirm for deletions
     $('button[name=delete]').bind('click', function (event) {
         Confirm.open(function () {
-            var form = $('form');
-            form.set("action", "@Url.Action("Delete", new{ id = @Model.Id })")                        
+            var form = $('form'), input = new Element('input', { 'type': 'hidden', 'name': 'delete' });
+            form.append(input);
             form.submit();
         });
         event.end();

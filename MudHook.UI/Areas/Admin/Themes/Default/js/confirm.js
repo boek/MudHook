@@ -7,9 +7,9 @@ var Confirm = (function() {
 	
 	return {
 		'open': function(callback) {
-			var html = '<p>' + Lang.get('delete_confirm') + '</p>';
-			html +='<p class="buttons"><button name="cancel" type="button">' + Lang.get('delete_confirm_cancel') + '</button> ';
-			html +='<a href="#confim">' + Lang.get('delete_confirm_submit') + '</a></p>';
+		    var html = '<p>Are you sure you would like to delete this post?</p>';
+			html +='<p class="buttons"><button name="cancel" type="button">No, keep this post</button> ';
+			html +='<a href="#confim">Yes, I understand this will be permanently deleted</a></p>';
 
 			var content = new Element('div', {
 				'class': 'popup_wrapper'			

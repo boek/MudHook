@@ -66,14 +66,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Areas\Admin\AdminAreaRegistration.cs" />
-    <Compile Include="Areas\Admin\Controllers\DashboardController.cs" />
     <Compile Include="Areas\Admin\Controllers\PostsController.cs" />
-    <Compile Include="Areas\Admin\Controllers\AccountController.cs" />
+    <Compile Include="Areas\Admin\Controllers\UsersController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Areas\Admin\Models\AccountModels.cs" />
+    <Compile Include="Areas\Admin\Models\UsersModels.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -188,7 +187,7 @@
     <Content Include="Areas\Admin\Views\Posts\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Posts\Create.cshtml" />
+    <Content Include="Areas\Admin\Views\Posts\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Posts\Edit.cshtml" />
@@ -197,10 +196,10 @@
     <Content Include="Areas\Admin\Views\Posts\Delete.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Areas\Admin\Views\Account\ChangePassword.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\ChangePasswordSuccess.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\LogOn.cshtml" />
-    <Content Include="Areas\Admin\Views\Account\Register.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ChangePassword.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\ChangePasswordSuccess.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\LogOn.cshtml" />
+    <Content Include="Areas\Admin\Views\Users\Register.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\_ViewStart.cshtml" />
@@ -222,6 +221,9 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Areas\Admin\Views\Shared\_LogOnPartial.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Areas\Admin\Views\Shared\_SideBarPartial.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" />

@@ -19,16 +19,11 @@
                 @Html.LabelFor(m => m.Password)
                 @Html.PasswordFor(m => m.Password)
                 <em>@Html.ActionLink("Forgotten your password", null)</em>
-            </p>            
-
-            <p>                
-                @Html.LabelFor(m => m.RememberMe)
-                @Html.CheckBoxFor(m => m.RememberMe)
-            </p>
+            </p>                        
 
             <p class="buttons">
-                <button type="submit">Login<</button>
-                @Html.ActionLink("Back to @MetaData.SiteName", "page", new { slug = @MetaData.HomePage })
+                <button type="submit">Login</button>
+                @Html.ActionLink("Back to " + @MetaData.SiteName, "page", new { slug = @MetaData.HomePage })
             </p>
         </fieldset>   
 }

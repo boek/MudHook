@@ -15,11 +15,9 @@ namespace MudHook.UI.Areas.Admin
         public override void RegisterArea(AreaRegistrationContext context)
         {
             context.MapRoute(
-                "Admin_default",
+                "Admin",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional },
-                null,
-                new string[] { "MudHook.UI.Areas.Admin.Controllers" }
+                new { controller = "Posts", action = "Index", id = UrlParameter.Optional }  
             );
         }
     }

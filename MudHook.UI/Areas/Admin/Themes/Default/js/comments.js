@@ -13,7 +13,7 @@ var Comments = (function() {
 
 		new Request.post(url, {'id': id, 'status': 'published'}, function() {
 			li.remove();
-			span.html(Lang.get('published'));
+			span.html('published');
 		});
 
 		event.end();
@@ -29,18 +29,18 @@ var Comments = (function() {
 
 		var url = Base_url + 'comments/update';
 
-		var html = '<fieldset><legend>' + Lang.get('edit_comment') + '</legend><em>' + Lang.get('edit_comment_explain') + '</em>';
+		var html = '<fieldset><legend>edit_comment</legend><em>edit_comment_explain</em>';
 		html +='<p><label>Text</label><textarea name="comment_text">' + text + '</textarea></p>';
 		html +='<p><label>Status</label><select name="comment_status">';
 
-			html += '<option value="published"' + (status == 'published' ? ' selected' : '') + '>' + Lang.get('published') + '</option>';
-			html += '<option value="pending"' + (status == 'pending' ? ' selected' : '') + '>' + Lang.get('pending') + '</option>';
-			html += '<option value="spam"' + (status == 'spam' ? ' selected' : '') + '>' + Lang.get('spam') + '</option>';
+			html += '<option value="published"' + (status == 'published' ? ' selected' : '') + '>published</option>';
+			html += '<option value="pending"' + (status == 'pending' ? ' selected' : '') + '>pending</option>';
+			html += '<option value="spam"' + (status == 'spam' ? ' selected' : '') + '>spam</option>';
 
 		html += '</select></p>';
 		html += '</fieldset>';
-		html +='<p class="buttons"><button name="update" type="button">' + Lang.get('update') + '</button> ';
-		html +='<a href="#close">' + Lang.get('close') + '</a></p>';
+		html +='<p class="buttons"><button name="update" type="button">update</button> ';
+		html +='<a href="#close">close</a></p>';
 		
 		var content = new Element('div', {
 			'class': 'popup_wrapper'			
@@ -80,7 +80,7 @@ var Comments = (function() {
 
 		new Request.post(url, {'id': id, 'text': text, 'status': status}, function() {
 			comment_text_output.html(text);
-			comment_status_output.html(Lang.get(status));
+			comment_status_output.html(status);
 
 			// get publish button if it exists
 			var btn = li.find('a[href$=publish]');
@@ -97,7 +97,7 @@ var Comments = (function() {
 					var a = new Element('a', {
 						'href': '#publish'
 					});
-					a.html(Lang.get('publish'));
+					a.html(publish);
 					a.bind('click', publish);
 					btn.append(a);
 					ul.append(btn, 'top');
