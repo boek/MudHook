@@ -28,23 +28,19 @@ namespace MudHook.Core
         public static void RegisterRoutes(RouteCollection routes)
         {
             routes.IgnoreRoute("{resource}.axd/{*pathInfo}");
+            routes.IgnoreRoute("favicon.ico");
             
             routes.MapRoute(
                 "post", // Route name
                 postPage + "/{slug}", // URL with parameters
-                new { controller = "Home", action = "Article", id = UrlParameter.Optional } // Parameter defaults
+                new { controller = "Home", action = "Article" } // Parameter defaults
             );
+
             routes.MapRoute(
                 "page", // Route name
                 "{slug}", // URL with parameters
                 new { controller = "Home", action = "Page", slug = homePage } // Parameter defaults
             );
-
-            //routes.MapRoute(
-            //    "Default", // Route name
-            //    "{controller}/{action}/{id}", // URL with parameters
-            //    new { controller = "Home", action = "Index", id = UrlParameter.Optional } // Parameter defaults
-            //);
 
         }
         
