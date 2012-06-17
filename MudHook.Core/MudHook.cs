@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
+using System.Web.Mvc;
 
 namespace MudHook.Core
 {            
@@ -32,15 +33,25 @@ namespace MudHook.Core
     public class Page
     {
         public int Id { get; set; }        
+
+        [Required]
         public string Slug { get; set; }
+
+        [Required]
         public string Name { get; set; }
+
+        [Required]
         public string Title { get; set; }
+
+        [AllowHtml]
         public string Content { get; set; }
-        public int PostStatusValue;
+
+        public int PostStatusValue { get; set; }
         public PostStatus Status {
             get { return (PostStatus)PostStatusValue; }
             set { PostStatusValue = (int)value; } 
         }
+
         public string Redirect { get; set; }
     }
 
@@ -48,15 +59,17 @@ namespace MudHook.Core
     {
         public int Id { get; set; }
         public string Name { get; set; }
+
+        public ICollection<Post> Posts { get; set; }
     }
 
     public class Post
     {
         public int Id { get; set; }
 
-        public int TagId { get; set; }        
+        public int? TagId { get; set; }        
 
-        [Required]
+        [Required]        
         public string Title { get; set; }        
 
         public string Slug { get; set; }
@@ -65,6 +78,7 @@ namespace MudHook.Core
         public string Description { get; set; }
 
         [Required]
+        [AllowHtml]
         [Display(Name = "Content")]
         public string Html { get; set; }
 
@@ -78,10 +92,8 @@ namespace MudHook.Core
 
         [Display(Name = "Date")]
         public DateTime Created { get; set; }
-        
-        public bool IsModified { get; set; }
-        
-        public DateTime LastModified { get; set; }
+                        
+        public DateTime? LastModified { get; set; }
         
         public int Author { get; set; }
         
@@ -98,7 +110,7 @@ namespace MudHook.Core
         
         public virtual Tag Tags { get; set; }
         
-        public virtual ICollection<Comment> Comments { get; set; }
+        public virtual ICollection<Comment> Comments { get; set; }        
     }
 
     public class User

@@ -14,6 +14,9 @@ namespace MudHook.Core
             UrlHelper url = new UrlHelper(HttpContext.Current.Request.RequestContext);
             return url.RouteUrl("Admin", new { controller = "Posts", action = "Index" });
         }                
-
+        public static string HttpHost(this HtmlHelper helper)
+        {
+            return HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
+        }
     }
 }

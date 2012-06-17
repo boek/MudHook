@@ -205,6 +205,7 @@
     $('button[name=delete]').bind('click', function (event) {
         Confirm.open(function () {
             var form = $('form');
+            return false;
             form.set("action", "@Url.Action("Delete", new{ id = @Model.Id })")                        
             form.submit();
         });

@@ -1,6 +1,5 @@
 ﻿@{
-    Layout = null;
-    string currentController = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();
+    Layout = null;    
 }
 
 <!doctype html>
@@ -23,22 +22,7 @@
 			<a id="logo" href="#">
 				<img src="@Url.Content("~/Areas/Admin/Themes/Default/img/logo.png")" alt="MudHook">
 			</a>           			
-			<nav>
-				<ul>					
-					<li @(currentController == "Posts" ? "class=active")>
-						@Html.ActionLink("Posts", "Index", new { controller = "Posts" })
-        			</li>					
-                    <li>
-                        @Html.ActionLink("Pages", "Index", new { controller = "Pages" })
-                    </li>
-                    <li>
-                        @Html.ActionLink("Users", "Index", new { controller = "Users" })
-                    </li>
-                    <li>
-                       @Html.ActionLink("Metadata", "Index", new { controller = "Metadata" })
-                    </li>
-				</ul>
-			</nav>
+			@Html.Partial("_NavigationPartial")
             @Html.Partial("_LogOnPartial")
 		</header>
         @RenderBody()

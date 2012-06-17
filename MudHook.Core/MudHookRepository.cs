@@ -5,6 +5,7 @@ using System.Web;
 using System.Web.Security;
 using System.Reflection;
 using System.Text;
+using System.Data;
 
 namespace MudHook.Core
 {    
@@ -152,6 +153,17 @@ namespace MudHook.Core
         {
             db.Posts.Add(post);
         }
+        public void EditPost(Post post)
+        {
+            db.Entry(post).State = EntityState.Modified;
+            Save();
+        }
+        public void DeletePost(int id)
+        {
+            Post post = GetPost(id);
+            db.Posts.Remove(post);
+            Save();
+        }
         public void CreatePost()
         {
             throw new NotImplementedException();
@@ -182,6 +194,22 @@ namespace MudHook.Core
         {
             return db.Pages.FirstOrDefault(page => page.Slug == slug);
         }          
+        public void AddPage(Page page)
+        {
+            db.Pages.Add(page);
+            Save();
+        }
+        public void EditPage(Page page)
+        {
+            db.Entry(page).State = EntityState.Modified;
+            Save();
+        }
+        public void DeletePage(int id)
+        {
+            Page page = GetPage(id);
+            db.Pages.Remove(page);
+            Save();
+        }
 
         public Meta GetMeta(string key)
         {

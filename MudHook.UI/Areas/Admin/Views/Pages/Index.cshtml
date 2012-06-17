@@ -1,11 +1,10 @@
-﻿@model IEnumerable<MudHook.Core.Post>
-
+﻿@model IEnumerable<MudHook.Core.Page>
 @{
     ViewBag.Title = "Index";
 }
 <h1>
-    Posts
-    @Html.ActionLink("Create a new post", "Add")
+    Pages
+    @Html.ActionLink("Create a new page", "Add")
 </h1>
 
 @Html.Raw(MudHookNotifications.Get().Html)
@@ -18,11 +17,8 @@
             {
 	        <li>
 	            <a href="@Url.Action("Edit", new{ id = @p.Id })">
-	                <strong>@p.Title</strong>
-	                <span>Created <time>@p.Created.ToString("dd MMM yyyy")</time> 
-	                by @p.Author</span>
-	            
-	                <i class="status">@p.Status</i>
+	                <strong>@p.Title</strong>	               
+	                <i class="status">@p.Status.ToString()</i>
 	            </a>
 	        </li>
             }

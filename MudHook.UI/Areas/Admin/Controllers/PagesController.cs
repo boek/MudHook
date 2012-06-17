@@ -1,42 +1,35 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
-using System.Data.Entity;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using MudHook.Core;
+using System.Data;
 
 namespace MudHook.UI.Areas.Admin.Controllers
-{ 
+{
     [Authorize]
-    public class PostsController : Controller
+    public class PagesController : Controller
     {
         private MudHookRepository repo = new MudHookRepository();        
 
-        public ViewResult Index()
+        public ActionResult Index()
         {
-            return View(repo.GetAllPosts());
-        }       
+            return View(repo.GetAllPages());
+        }
 
         public ActionResult Add()
         {
             return View();
-        }         
+        }
 
-        [HttpPost]        
-        public ActionResult Add(Post post)
+        [HttpPost]
+        public ActionResult Add(Page page)
         {
             if (ModelState.IsValid)
             {
-                post.Created = DateTime.Now;                
-                post.LastModified = DateTime.Now;
-                //post.Status = 1;
-                post.Author = 1;  
-
-                MudHookNotifications.Set(new Notification("success", "Your new post has been added"));
-
-                repo.AddPost(post);                
+                repo.AddPage(page);                
+                MudHookNotifications.Set(new Notification("success", "Your new page has been added"));
                 return RedirectToAction("Index");
             }
             else
@@ -50,35 +43,39 @@ namespace MudHook.UI.Areas.Admin.Controllers
                 MudHookNotifications.Set(new Notification("error", message.TrimEnd()));
             }
 
-            return View(post);
+            return View(page);
         }
-                
+
         public ActionResult Edit(int id)
         {
-            Post post = repo.GetPost(id);
-            //ViewBag.Tags = ;
-            return View(post);
+            Page page = repo.GetPage(id);
+            return View(page);
         }
-       
+
         [HttpPost]
-        public ActionResult Edit(Post post)
+        public ActionResult Edit(Page page)
         {
             if (ModelState.IsValid)
             {
-                repo.EditPost(post);
-                MudHookNotifications.Set(new Notification("success", "Your post has been updated."));
+                repo.EditPage(page);
+                MudHookNotifications.Set(new Notification("success", "Your page has been updated."));
                 return RedirectToAction("Index");
             }
-            return View(post);
+            return View(page);
         }
-       
+
         [HttpPost, ActionName("Delete")]
         public ActionResult Delete(int id)
-        {                        
-            repo.DeletePost(id);                   
-            MudHookNotifications.Set(new Notification("success", "Your post has been deleted"));
+        {
+            Page page = repo.GetPage(id);
+            if (page.Slug == MetaData.HomePage || page.Slug == MetaData.PostsPage)
+            {
+                MudHookNotifications.Set(new Notification("error", "Sorry, your can not delete you home page or posts page."));
+                return Edit(page.Id);
+            }
+            repo.DeletePage(id);            
+            MudHookNotifications.Set(new Notification("success", "Your page has been deleted"));
             return RedirectToAction("Index");
-        }
-       
+        }        
     }
 }

@@ -1,0 +1,21 @@
+﻿@{string currentController = HttpContext.Current.Request.RequestContext.RouteData.Values["controller"].ToString();}
+
+@if (Request.IsAuthenticated)
+{
+<nav>
+	<ul>					
+		<li @(currentController == "Posts" ? "class=active" : "")>
+			@Html.ActionLink("Posts", "Index", new { controller = "Posts" })
+        </li>					
+        <li @(currentController == "Pages" ? "class=active" : "")>
+            @Html.ActionLink("Pages", "Index", new { controller = "Pages" })
+        </li>
+        <li @(currentController == "Users" ? "class=active" : "")>
+            @Html.ActionLink("Users", "Index", new { controller = "Users" })
+        </li>
+        <li @(currentController == "Metadata" ? "class=active" : "")>
+            @Html.ActionLink("Metadata", "Index", new { controller = "Metadata" })
+        </li>
+	</ul>
+</nav>
+}

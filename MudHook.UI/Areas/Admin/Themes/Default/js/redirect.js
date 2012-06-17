@@ -1,9 +1,9 @@
 
 (function() {
 
-	var checkbox = $('#redirect'), 
-		redirect = $('#redirect_url').parent(),
-		content = $('#content').parent();
+	var checkbox = $('#RedirectBox'), 
+		redirect = $('#Redirect').parent(),
+		content = $('#Content').parent();
 
 	var set = function() {
 		var display = checkbox.get('checked') ? 'block' : 'none';
@@ -13,7 +13,7 @@
 		content.css('display', display);
 
 		if(!checkbox.get('checked')) {
-			$('#redirect_url').val('');
+			$('#Redirect').val('');
 		}
 	};
 
