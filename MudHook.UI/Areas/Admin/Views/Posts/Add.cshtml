@@ -6,6 +6,8 @@
 
 <h1>Add a Post</h1>
 
+@Html.Raw(MudHookNotifications.Get().Html)
+
 <section class="content">
 	<nav class="tabs">
 		<ul>
@@ -29,7 +31,8 @@
 				<p>
 					@Html.LabelFor(model => model.Created)
 	   
-					@Html.EditorFor(model => model.Created)					
+
+					@Html.TextBoxFor(model => model.Created, new { Value = @DateTime.Now.ToString("dd MMM yyyy hh:mm") })
 					<em>The date your post will be published. Uses <code><a href="http://php.net/manual/en/function.strtotime.php">strtotime()</a></code></em>
 				</p>
 
@@ -129,21 +132,6 @@
 }
 </section>
 
-<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/textareas.js")></script>
+<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/textareas.js")"></script>
 <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/custom_fields.js")"></script>
-<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/comments.js")"></script>
-<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/tabs.js")"></script>
-
-<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/confirm.js")"></script>
-<script>
-    // confirm for deletions
-    $('button[name=delete]').bind('click', function (event) {
-        Confirm.open(function () {
-            var form = $('form'), input = new Element('input', { 'type': 'hidden', 'name': 'delete' });
-            form.append(input);
-            form.submit();
-        });
-        event.end();
-    });
-</script>
-	
+<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/tabs.js")"></script>	

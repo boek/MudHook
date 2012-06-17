@@ -56,12 +56,15 @@ namespace MudHook.Core
 
         public int TagId { get; set; }        
 
+        [Required]
         public string Title { get; set; }        
 
         public string Slug { get; set; }
-
+        
+        [Required]
         public string Description { get; set; }
 
+        [Required]
         [Display(Name = "Content")]
         public string Html { get; set; }
 
@@ -138,5 +141,5 @@ namespace MudHook.Core
     {
         inactive = 1,
         active = 2
-    }
+    }    
 }

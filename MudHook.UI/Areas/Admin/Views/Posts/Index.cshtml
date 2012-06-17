@@ -7,6 +7,9 @@
     Posts
     @Html.ActionLink("Create a new post", "Add")
 </h1>
+
+@Html.Raw(MudHookNotifications.Get().Html);
+
 <section class="content">
 	@if (Model.Count() > 0)
      {

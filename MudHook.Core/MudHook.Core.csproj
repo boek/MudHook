@@ -58,6 +58,7 @@
     <Compile Include="MudHookContext.cs" />
     <Compile Include="MudHookExtensions.cs" />
     <Compile Include="MudHookMembershipProvider.cs" />
+    <Compile Include="MudHookNotifications.cs" />
     <Compile Include="MudHookRepository.cs" />
     <Compile Include="MudHookReset.cs" />
     <Compile Include="MudHookRoleProvider.cs" />

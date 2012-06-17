@@ -12,8 +12,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
     [Authorize]
     public class PostsController : Controller
     {
-        private MudHookContext db = new MudHookContext();
-
+        private MudHookContext db = new MudHookContext();        
         //
         // GET: /Admin/Post/
 
@@ -56,7 +55,17 @@ namespace MudHook.UI.Areas.Admin.Controllers
 
                 db.Posts.Add(post);
                 db.SaveChanges();
-                return RedirectToAction("Index");  
+                return RedirectToAction("Index");
+            }
+            else
+            {
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                string message = "";
+                foreach (var e in allErrors)
+                {
+                    message += e.ErrorMessage + ",";
+                }
+                MudHookNotifications.Set(new Notification("error", message.TrimEnd()));
             }
 
             return View(post);
@@ -81,6 +90,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
             {
                 db.Entry(post).State = EntityState.Modified;
                 db.SaveChanges();
+                MudHookNotifications.Set(new Notification("success", "Your post has been updated."));
                 return RedirectToAction("Index");
             }
             return View(post);
@@ -95,6 +105,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
             Post post = db.Posts.Find(id);
             db.Posts.Remove(post);
             db.SaveChanges();
+            MudHookNotifications.Set(new Notification("success", "Your post has been deleted"));
             return RedirectToAction("Index");
         }
 
