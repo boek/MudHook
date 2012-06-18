@@ -15,7 +15,8 @@ namespace MudHook.UI.Areas.Admin.Controllers
 
         public MudHookMembershipProvider MembershipService { get; set; }
         public MudHookRoleProvider AuthorizationService { get; set; }
-
+        private MudHookRepository repo = new MudHookRepository();
+   
         protected override void Initialize(RequestContext requestContext)
         {
             if (MembershipService == null)
@@ -25,6 +26,44 @@ namespace MudHook.UI.Areas.Admin.Controllers
 
             base.Initialize(requestContext);
         }    
+
+
+        public ActionResult Index()
+        {
+            return View(repo.GetAllUsers());
+        }
+
+        public ActionResult Add()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public ActionResult Add(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    MembershipService.CreateUser(user.Username, user.RealName, user.Password, user.Password, "Member");
+
+                    MudHookNotifications.Set(new Notification("success", "User was successfully added."));
+                    
+                    return RedirectToAction("Index", "Home");
+                }
+                catch (ArgumentException ae)
+                {
+                    ModelState.AddModelError("", ae.Message);
+                }
+            }
+
+            return View(user);
+        }
+
+        public ActionResult Edit(int id)
+        {
+            return View(repo.GetUser(id));
+        }
 
         public ActionResult LogOn()
         {
@@ -78,7 +117,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
                 
                 try
                 {
-                    MembershipService.CreateUser(model.UserName, model.FirstName, model.LastName, model.Password, model.Email, "Member");
+                    MembershipService.CreateUser(model.UserName, model.RealName, model.Password, model.Email, "Member");
 
                     FormsAuthentication.SetAuthCookie(model.UserName, false);
                     return RedirectToAction("Index", "Home");

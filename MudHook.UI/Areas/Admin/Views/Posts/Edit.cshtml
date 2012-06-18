@@ -36,7 +36,11 @@
 					@Html.EditorFor(model => model.Title)					
 					<em>Your post&rsquo;s title.</em>
 				</p>
-				
+				<p>
+                    @Html.LabelFor(model => model.TagId)
+
+                    @Html.DropDownListFor(model => model.TagId, new SelectList(Model.AvailableTags, "id", "name", Model.Tag.Id));
+                </p>
 				<p>
 					@Html.LabelFor(model => model.Created)
 	   
@@ -191,7 +195,7 @@
 	<em>Some useful links.</em>
 	<ul>
 		<li><a href="#">View this post on your site</a></li>
-	</ul>
+	</ul>    
 </aside>
 
 <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/textareas.js")"></script>

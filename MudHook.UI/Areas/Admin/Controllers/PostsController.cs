@@ -55,8 +55,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
                 
         public ActionResult Edit(int id)
         {
-            Post post = repo.GetPost(id);
-            //ViewBag.Tags = ;
+            Post post = repo.GetPost(id);            
             return View(post);
         }
        

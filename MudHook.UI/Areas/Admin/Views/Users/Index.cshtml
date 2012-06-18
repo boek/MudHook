@@ -1,0 +1,24 @@
+﻿@model IEnumerable<MudHook.Core.User>
+@{
+    ViewBag.Title = "Index";
+}
+<h1>Users
+@Html.ActionLink("Create a new user", "Add")</h1>
+
+@Html.Raw(MudHookNotifications.Get().Html)
+
+<section class="content">
+	<ul class="list">
+	    @foreach (User u in Model)
+     {      
+	    <li>
+	        <a href="#">
+	            <strong>@u.RealName</strong>
+	            <span>Username: @u.Username</span>
+	            
+	            <i class="role">@u.Role.Name</i>
+	        </a>
+	    </li>
+	 }
+	</ul>
+</section>

@@ -6,6 +6,7 @@ using System.Web.Security;
 using System.Reflection;
 using System.Text;
 using System.Data;
+using System.Data.Entity;
 
 namespace MudHook.Core
 {    
@@ -59,13 +60,13 @@ namespace MudHook.Core
         {
             db.Users.Add(user);
         }
-        public void CreateUser(string userName, string firstName, string lastName, string password, string email, string roleName)
+        public void CreateUser(string userName, string realName, string password, string email, string roleName)
         {
             Role role = GetRole(roleName);
 
             if (string.IsNullOrEmpty(userName.Trim()))
                 throw new ArgumentException("The user name provided is invalid. Please check the value and try again.");
-            if (string.IsNullOrEmpty(firstName.Trim()) || string.IsNullOrEmpty(lastName.Trim()))
+            if (string.IsNullOrEmpty(realName.Trim()))
                 throw new ArgumentException("The name provided is invalid. Please check the value and try again.");
             if (string.IsNullOrEmpty(password.Trim()))
                 throw new ArgumentException("The password provided is invalid. Please enter a valid password value.");
@@ -79,8 +80,7 @@ namespace MudHook.Core
             User newUser = new User()
             {
                 Username = userName,
-                FirstName = firstName,
-                LastName = lastName,
+                RealName = realName,
                 Password = Convert.ToBase64String(MudHookSecurity.GenerateSaltedHash(Encoding.UTF8.GetBytes(password), Encoding.UTF8.GetBytes(userName))),
                 Email = email,
                 Bio = "",
@@ -143,7 +143,13 @@ namespace MudHook.Core
         }
         public Post GetPost(int id)
         {
-            return db.Posts.SingleOrDefault(post => post.Id == id);
+            //return db.Posts.Include(t => t).SingleOrDefault(post => post.Id == id);
+            //return db.Posts.Where(p => p.Id == id).Include(p => p.AvailableTags).FirstOrDefault();
+            //Post post = db.Posts.Include(t => t.AvailableTags).Where(p => p.Id == id).FirstOrDefault();
+            Post post = db.Posts.Where(p => p.Id == id).FirstOrDefault();
+            var tags = db.Tags.ToList<Tag>();
+            post.AvailableTags = tags;
+            return post;
         }
         public Post GetPost(string slug)
         {
@@ -208,6 +214,36 @@ namespace MudHook.Core
         {
             Page page = GetPage(id);
             db.Pages.Remove(page);
+            Save();
+        }
+
+        public IQueryable<Tag> GetAllTags()
+        {
+            return from tag in db.Tags
+                   select tag;
+        }
+        public Tag GetTag(int id)
+        {
+            return db.Tags.FirstOrDefault(tag => tag.Id == id);
+        }
+        public Tag GetTag(string name)
+        {
+            return db.Tags.FirstOrDefault(tag => tag.Name == name);
+        }
+        public void AddTag(Tag tag)
+        {
+            db.Tags.Add(tag);
+            Save();
+        }
+        public void EditTag(Tag tag)
+        {
+            db.Entry(tag).State = EntityState.Modified;
+            Save();
+        }
+        public void DeleteTag(int id)
+        {
+            Tag tag = GetTag(id);
+            db.Tags.Remove(tag);
             Save();
         }
 

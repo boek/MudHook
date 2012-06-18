@@ -1,0 +1,67 @@
+﻿@model MudHook.Core.User
+
+@{
+    ViewBag.Title = "Add";
+}
+
+<h1>Add a new user</h1>
+
+@Html.Raw(MudHookNotifications.Get().Html)
+
+<section class="content">
+
+@using (Html.BeginForm())
+{ 
+    <fieldset>
+        <p>
+            @Html.LabelFor(model => model.RealName)
+
+            @Html.EditorFor(model => model.RealName)
+            <em>The user&rsquo;s real name. Used in author bylines (visible to public).</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Bio)
+
+            @Html.TextAreaFor(model => model.Bio)
+            <em>A short biography for your user. Accepts valid HTML.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.UserStatusValue)
+
+            @Html.DropDownListFor(model => model.UserStatusValue, new SelectList(Enum.GetValues(typeof(UserStatus))))
+            <em>If inactive, the user will not be able to log in.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.RoleId)
+
+            @Html.EditorFor(model => model.RoleId)
+            <em>The user&rsquo;s role. See <a href="//anchorcms.com/docs/roles">here</a> for more info.</em>
+        </p>    
+    </fieldset>
+    <fieldset>
+        <legend>User Details</legend>
+        <em>Create the details for your new user to log in to MudHook.</em>
+        <p>
+            @Html.LabelFor(model => model.Username);
+
+            @Html.EditorFor(model => model.Username);
+            <em>The desired username. Can be changed later.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Password)
+
+            @Html.EditorFor(model => model.Password)
+            <em>And the matching password. Can be changed later.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Email)
+
+            @Html.EditorFor(model => model.Email)
+            <em>The user&rsquo;s email address. Needed if the user forgets their password.</em>
+        </p>
+    </fieldset>
+    <p class="buttons">
+		<button type="submit">Create</button>
+		<a href="#">Return to users</a>
+	</p>
+}

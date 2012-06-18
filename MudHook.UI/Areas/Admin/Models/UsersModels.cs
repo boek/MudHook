@@ -49,12 +49,8 @@ namespace MudHook.UI.Areas.Admin.Models
         public string UserName { get; set; }
 
         [Required]
-        [Display(Name = "First Name")]
-        public string FirstName { get; set; }
-
-        [Required]
-        [Display(Name = "Last Name")]
-        public string LastName { get; set; }
+        [Display(Name = "Real Name")]
+        public string RealName { get; set; }
 
         [Required]
         [DataType(DataType.EmailAddress)]

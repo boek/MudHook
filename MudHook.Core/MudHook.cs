@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
+using System.Collections.ObjectModel;
 
 namespace MudHook.Core
 {            
@@ -58,16 +59,16 @@ namespace MudHook.Core
     public class Tag
     {
         public int Id { get; set; }
-        public string Name { get; set; }
-
-        public ICollection<Post> Posts { get; set; }
+        public string Name { get; set; }        
     }
 
     public class Post
     {
         public int Id { get; set; }
 
-        public int? TagId { get; set; }        
+        public int? TagId { get; set; }
+        public virtual Tag Tag { get; set; }
+        public IEnumerable<Tag> AvailableTags { get; set; }
 
         [Required]        
         public string Title { get; set; }        
@@ -97,8 +98,7 @@ namespace MudHook.Core
         
         public int Author { get; set; }
         
-        public int PostStatusValue{ get; set; }
-        
+        public int PostStatusValue{ get; set; }        
         public PostStatus Status { 
             get { return (PostStatus) PostStatusValue; }
             set { PostStatusValue = (int)value; }
@@ -106,9 +106,6 @@ namespace MudHook.Core
 
         [Display(Name = "Allow Comments")]
         public bool CommentsEnabled { get; set; }
-
-        
-        public virtual Tag Tags { get; set; }
         
         public virtual ICollection<Comment> Comments { get; set; }        
     }
@@ -119,8 +116,7 @@ namespace MudHook.Core
         public string Username { get; set; }
         public string Password { get; set; }
         public string Email { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        public string RealName { get; set; }        
         public string Bio { get; set; }        
         public int UserStatusValue { get; set; }
         public UserStatus Status
@@ -129,6 +125,8 @@ namespace MudHook.Core
             set { UserStatusValue = (int)value; }
         }
         public int RoleId { get; set; }
+
+        public virtual Role Role { get; set; }
     }
     
     public class Role

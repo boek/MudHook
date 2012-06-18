@@ -15,7 +15,7 @@ namespace MudHook.Core
             context.Roles.Add(new Role { Id = 2, Name = "User" });
 
             //Create User
-            context.Users.Add(new User { Id = 1, RoleId = 1, Username = "jeffboek", Password = Convert.ToBase64String(MudHookSecurity.GenerateSaltedHash(Encoding.UTF8.GetBytes("1234qwer"), Encoding.UTF8.GetBytes("jeffboek"))), FirstName = "Jeff", LastName = "Boek", Bio = "", Email = "j@jboek.com", Status = UserStatus.active });
+            context.Users.Add(new User { Id = 1, RoleId = 1, Username = "jeffboek", Password = Convert.ToBase64String(MudHookSecurity.GenerateSaltedHash(Encoding.UTF8.GetBytes("1234qwer"), Encoding.UTF8.GetBytes("jeffboek"))), RealName = "Jeff Boek", Bio = "", Email = "j@jboek.com", Status = UserStatus.active });
 
             //Create Tags
             context.Tags.Add(new Tag { Id = 1, Name = "TEST TAG 1 " });

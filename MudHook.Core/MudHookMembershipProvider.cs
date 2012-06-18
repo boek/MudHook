@@ -50,9 +50,9 @@ namespace MudHook.Core
             throw new NotImplementedException();
         }
 
-        public void CreateUser(string userName, string firstName, string lastName, string password, string email, string roleName)
+        public void CreateUser(string userName, string realName, string password, string email, string roleName)
         {
-            this.repo.CreateUser(userName, firstName, lastName, password, email, roleName);
+            this.repo.CreateUser(userName, realName, password, email, roleName);
         }
         public override MembershipUser CreateUser(string username, string password, string email, string passwordQuestion, string passwordAnswer, bool isApproved, object providerUserKey, out MembershipCreateStatus status)
         {
