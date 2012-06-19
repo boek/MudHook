@@ -112,10 +112,17 @@ namespace MudHook.Core
 
     public class User
     {
-        public int Id { get; set; }        
+        public int Id { get; set; }
+        
+        [Required]
         public string Username { get; set; }
+
+        [DataType(DataType.Password)]   
         public string Password { get; set; }
+
+        [Required]
         public string Email { get; set; }
+
         public string RealName { get; set; }        
         public string Bio { get; set; }        
         public int UserStatusValue { get; set; }
@@ -127,6 +134,12 @@ namespace MudHook.Core
         public int RoleId { get; set; }
 
         public virtual Role Role { get; set; }
+        
+        [NotMapped]
+        public virtual string OldPassword
+        {
+            get { return Password; }
+        }
     }
     
     public class Role

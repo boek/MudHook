@@ -1,17 +1,18 @@
 ﻿@model MudHook.Core.User
 
 @{
-    ViewBag.Title = "Add";
+    ViewBag.Title = "Edit";
 }
 
-<h1>Add a new user</h1>
+<h1>@Model.Username's profile</h1>
 
 @Html.Raw(MudHookNotifications.Get().Html)
 
 <section class="content">
 
 @using (Html.BeginForm())
-{ 
+{
+    @Html.HiddenFor(model => model.OldPassword)
     <fieldset>
         <p>
             @Html.LabelFor(model => model.RealName)
@@ -26,9 +27,13 @@
             <em>A short biography for your user. Accepts valid HTML.</em>
         </p>
         <p>
-            @Html.LabelFor(model => model.UserStatusValue)
+            @Html.LabelFor(model => model.Status)
 
-            @Html.DropDownListFor(model => model.UserStatusValue, new SelectList(Enum.GetValues(typeof(UserStatus))))
+            @Html.DropDownListFor(model => model.Status, Enum.GetValues(typeof(UserStatus)).Cast<UserStatus>().Select(v => new SelectListItem
+               {
+                   Text = v.ToString().Replace("_", " "),
+                   Value = v.ToString().Replace("_", " ")
+               }), Model.Status)
             <em>If inactive, the user will not be able to log in.</em>
         </p>
         <p>
@@ -42,16 +47,16 @@
         <legend>User Details</legend>
         <em>Create the details for your new user to log in to MudHook.</em>
         <p>
-            @Html.LabelFor(model => model.Username);
+            @Html.LabelFor(model => model.Username)
 
-            @Html.EditorFor(model => model.Username);
+            @Html.EditorFor(model => model.Username)
             <em>The desired username. Can be changed later.</em>
         </p>
         <p>
             @Html.LabelFor(model => model.Password)
 
-            @Html.EditorFor(model => model.Password)
-            <em>And the matching password. Can be changed later.</em>
+            @Html.Password("Password")
+            <em>Leave blank for no change.</em>
         </p>
         <p>
             @Html.LabelFor(model => model.Email)
@@ -61,8 +66,27 @@
         </p>
     </fieldset>
     <p class="buttons">
-		<button type="submit">Create</button>
+		<button type="submit">Update</button>
+        @if (Context.User.Identity.Name != Model.Username)
+        { 
+            <button name="delete" type="submit">Delete</button>
+        }
 		<a href="#">Return to users</a>
 	</p>
 }
 </section>
+
+@if (Context.User.Identity.Name != Model.Username)
+{ 
+    <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/confirm.js")"></script>	
+    <script>
+        $('button[name=delete]').bind('click', function(event) {
+		    Confirm.open(function() {
+			    var form = $('form');
+                form.set("action", "@Url.Action("Delete", new { id = @Model.Id })")                        
+                form.submit();
+		    });
+		    event.end();
+	    });
+    </script>
+}

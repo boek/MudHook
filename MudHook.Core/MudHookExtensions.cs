@@ -17,6 +17,6 @@ namespace MudHook.Core
         public static string HttpHost(this HtmlHelper helper)
         {
             return HttpContext.Current.Request.ServerVariables["HTTP_HOST"];
-        }
+        }        
     }
 }

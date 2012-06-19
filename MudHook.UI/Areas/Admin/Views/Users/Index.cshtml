@@ -12,7 +12,7 @@
 	    @foreach (User u in Model)
      {      
 	    <li>
-	        <a href="#">
+	        <a href="@Url.Action("Edit", new { id = u.Id })">
 	            <strong>@u.RealName</strong>
 	            <span>Username: @u.Username</span>
 	            

@@ -7,6 +7,7 @@ using System.Web.Routing;
 using System.Web.Security;
 using MudHook.UI.Areas.Admin.Models;
 using MudHook.Core;
+using System.Text;
 
 namespace MudHook.UI.Areas.Admin.Controllers
 {
@@ -63,6 +64,37 @@ namespace MudHook.UI.Areas.Admin.Controllers
         public ActionResult Edit(int id)
         {
             return View(repo.GetUser(id));
+        }
+
+        [HttpPost]
+        public ActionResult Edit(User user)
+        {
+            if (ModelState.IsValid)
+            {
+                if (string.IsNullOrEmpty(user.Password))
+                {
+                    user.Password = repo.GetUser(user.Id).Password;
+                }
+                else
+                {
+                    user.Password =  Convert.ToBase64String(
+                        MudHookSecurity.GenerateSaltedHash(Encoding.UTF8.GetBytes(user.Password), Encoding.UTF8.GetBytes(user.Username.ToLower())));
+                }
+                repo.EditUser(user);
+                MudHookNotifications.Set(new Notification("success", "User has been updated"));
+                RedirectToAction("Index");
+            }
+            else
+            {
+                var allErrors = ModelState.Values.SelectMany(v => v.Errors);
+                string message = "";
+                foreach (var e in allErrors)
+                {
+                    message += e.ErrorMessage + ",";
+                }
+                MudHookNotifications.Set(new Notification("error", message.TrimEnd()));
+            }
+            return View(user);
         }
 
         public ActionResult LogOn()

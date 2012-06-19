@@ -60,6 +60,11 @@ namespace MudHook.Core
         {
             db.Users.Add(user);
         }
+        public void EditUser(User user)
+        {
+            db.Entry(user).State = EntityState.Modified;
+            Save();
+        }
         public void CreateUser(string userName, string realName, string password, string email, string roleName)
         {
             Role role = GetRole(roleName);
