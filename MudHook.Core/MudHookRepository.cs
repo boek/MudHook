@@ -7,6 +7,7 @@ using System.Reflection;
 using System.Text;
 using System.Data;
 using System.Data.Entity;
+using MudHook.Core.ExtensionMethods;
 
 namespace MudHook.Core
 {    
@@ -70,23 +71,23 @@ namespace MudHook.Core
             Role role = GetRole(roleName);
 
             if (string.IsNullOrEmpty(userName.Trim()))
-                throw new ArgumentException("The user name provided is invalid. Please check the value and try again.");
+                throw new ArgumentException("Please enter a username");
             if (string.IsNullOrEmpty(realName.Trim()))
-                throw new ArgumentException("The name provided is invalid. Please check the value and try again.");
+                throw new ArgumentException("Please enter a display name");
             if (string.IsNullOrEmpty(password.Trim()))
-                throw new ArgumentException("The password provided is invalid. Please enter a valid password value.");
+                throw new ArgumentException("Please enter a password");
             if (string.IsNullOrEmpty(email.Trim()))
-                throw new ArgumentException("The e-mail address provided is invalid. Please check the value and try again.");
+                throw new ArgumentException("Please enter a valid email address");
             if (!RoleExists(role))
                 throw new ArgumentException("The role selected for this user does not exist! Contact an administrator!");
             if (this.db.Users.Any(user => user.Username == userName))
-                throw new ArgumentException("Username already exists. Please enter a different user name.");
+                throw new ArgumentException("Username is already being used");
 
             User newUser = new User()
             {
                 Username = userName,
                 RealName = realName,
-                Password = Convert.ToBase64String(MudHookSecurity.GenerateSaltedHash(Encoding.UTF8.GetBytes(password), Encoding.UTF8.GetBytes(userName))),
+                Password = MudHookSecurity.Hash(password, userName),
                 Email = email,
                 Bio = "",
                 Status = UserStatus.active,
@@ -109,6 +110,12 @@ namespace MudHook.Core
 
             Save();
         }                
+        public void DeleteUser(int id)
+        {
+            User user = GetUser(id);
+            db.Users.Remove(user);
+            Save();
+        }
 
         public IQueryable<Role> GetAllRoles()
         {
@@ -206,12 +213,22 @@ namespace MudHook.Core
             return db.Pages.FirstOrDefault(page => page.Slug == slug);
         }          
         public void AddPage(Page page)
-        {
+        {            
+            page.Slug = page.Slug.ToSlug();
+
+            if (SlugExists(page))
+                throw new ArgumentException("A page with the same slug already exists, please change your page slug");
+
             db.Pages.Add(page);
             Save();
         }
         public void EditPage(Page page)
         {
+            page.Slug = page.Slug.ToSlug();
+
+            if (SlugExists(page))
+                throw new ArgumentException("A page with the same slug already exists, please change your page slug");
+
             db.Entry(page).State = EntityState.Modified;
             Save();
         }
@@ -252,9 +269,21 @@ namespace MudHook.Core
             Save();
         }
 
+        public IQueryable<Meta> GetAllMetaData()
+        {
+            return from meta in db.Meta
+                   select meta;
+        }
         public Meta GetMeta(string key)
         {
             return db.Meta.FirstOrDefault(m => m.Key == key);
+        }
+        public void SetMeta(string key, string value)
+        {
+            Meta meta = GetMeta(key);
+            meta.Value = value;
+            db.Entry(meta).State = EntityState.Modified;
+            Save();
         }
 
 
@@ -270,8 +299,16 @@ namespace MudHook.Core
             if (role == null)
                 return false;
 
-            return (db.Roles.SingleOrDefault(r => r.Id == r.Id || r.Name == role.Name) != null);
+            return (db.Roles.SingleOrDefault(r => r.Id == role.Id || r.Name == role.Name) != null);
         }
+        public bool SlugExists(Page page)
+        {
+            if (page == null)
+                return false;
+
+            return (db.Pages.Any(p => p.Slug == page.Slug && p.Id != page.Id));
+        }
+
 
         public void Save()
         {

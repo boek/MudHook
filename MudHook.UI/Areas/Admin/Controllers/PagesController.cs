@@ -28,9 +28,19 @@ namespace MudHook.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                repo.AddPage(page);                
-                MudHookNotifications.Set(new Notification("success", "Your new page has been added"));
-                return RedirectToAction("Index");
+                if (string.IsNullOrEmpty(page.Slug))
+                    page.Slug = page.Title;
+
+                try
+                {
+                    repo.AddPage(page);
+                    MudHookNotifications.Set(new Notification("success", "Your new page has been added"));
+                    return RedirectToAction("Index");
+                }
+                catch (ArgumentException ae)
+                {
+                    MudHookNotifications.Set(new Notification("error", ae.Message));
+                }
             }
             else
             {
@@ -57,9 +67,19 @@ namespace MudHook.UI.Areas.Admin.Controllers
         {
             if (ModelState.IsValid)
             {
-                repo.EditPage(page);
-                MudHookNotifications.Set(new Notification("success", "Your page has been updated."));
-                return RedirectToAction("Index");
+                if (string.IsNullOrEmpty(page.Slug))
+                    page.Slug = page.Title;
+
+                try
+                {
+                    repo.EditPage(page);
+                    MudHookNotifications.Set(new Notification("success", "Your page has been updated."));
+                    return RedirectToAction("Index");
+                }
+                catch (ArgumentException ae)
+                {
+                    MudHookNotifications.Set(new Notification("error", ae.Message));
+                }
             }
             return View(page);
         }

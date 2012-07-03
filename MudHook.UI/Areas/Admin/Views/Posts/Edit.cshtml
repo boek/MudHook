@@ -39,7 +39,7 @@
 				<p>
                     @Html.LabelFor(model => model.TagId)
 
-                    @Html.DropDownListFor(model => model.TagId, new SelectList(Model.AvailableTags, "id", "name", Model.Tag.Id));
+                    @Html.DropDownListFor(model => model.TagId, new SelectList(Model.AvailableTags, "id", "name", Model.Tag.Id))
                 </p>
 				<p>
 					@Html.LabelFor(model => model.Created)

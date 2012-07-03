@@ -1,0 +1,67 @@
+﻿@model MudHook.Core.MetadataModel
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h1>Site metadata</h1>
+
+@Html.Raw(MudHookNotifications.Get().Html)
+
+<section class="content">
+@using (Html.BeginForm())
+{
+    <fieldset>
+        <p>
+            @Html.LabelFor(model => model.SiteName)
+
+            @Html.EditorFor(model => model.SiteName)
+            <em>Your site&rsquo;s name.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.SiteDescription)
+
+            @Html.EditorFor(model => model.SiteDescription)
+            <em>A short paragraph to describe your site.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.HomePage)
+
+            @Html.DropDownListFor(model => model.HomePage, new SelectList(MudHookExtensions.GetPagesSelectList(), "Value", "Text", MetaData.HomePage))
+            <em>Your current home page.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.PostsPage)
+
+            @Html.DropDownListFor(model => model.PostsPage, new SelectList(MudHookExtensions.GetPagesSelectList(), "Value", "Text", MetaData.PostsPage))
+            <em>Your page that will show your posts.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.PostsPerPage)
+
+            @Html.EditorFor(model => model.PostsPerPage)
+            <em>The number of posts to display per page.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Theme)
+
+            @Html.EditorFor(model => model.Theme)
+            <em>Your current theme.</em>
+        </p>
+        <p>
+            @Html.LabelFor(model => model.AutoPublishComments)
+
+            @Html.CheckBoxFor(model => model.AutoPublishComments)            
+        </p>
+        <p>
+            @Html.LabelFor(model => model.Twitter)
+
+            @Html.EditorFor(model => model.Twitter)
+            <em>Your twitter account.</em>
+        </p>
+    </fieldset>
+    <p class="buttons">
+		<button name="save" type="submit">Save changes</button>		
+	</p>
+}
+</section>

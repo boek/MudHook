@@ -6,6 +6,7 @@ using System.Runtime;
 using System.Runtime.Caching;
 using System.Web;
 using System.Web.Caching;
+using System.Reflection;
 
 namespace MudHook.Core
 {        
@@ -21,6 +22,16 @@ namespace MudHook.Core
                 return (string)HttpRuntime.Cache["SiteName"];
             }
             
+        }
+        public static string SiteDescription
+        {
+            get
+            {
+                if (IsExpired("SiteDescription"))
+                    ReloadCache("SiteDescription");
+
+                return (string)HttpRuntime.Cache["SiteDescription"];
+            }
         }
         public static string TwitterAccount
         {
@@ -52,6 +63,36 @@ namespace MudHook.Core
                 return (string)HttpRuntime.Cache["HomePage"];
             }
         }
+        public static string AutoPublishComments
+        {
+            get
+            {
+                if (IsExpired("AutoPublishComments"))
+                    ReloadCache("AutoPublishComments");
+
+                return (string)HttpRuntime.Cache["AutoPublishComments"];
+            }
+        }
+        public static int PostsPerPage
+        {
+            get
+            {
+                if (IsExpired("PostsPerPage"))
+                    ReloadCache("PostsPerPage");
+
+                return Convert.ToInt32(HttpRuntime.Cache["PostsPerPage"]);
+            }
+        }
+        public static string Theme
+        {
+            get
+            {
+                if (IsExpired("Theme"))
+                    ReloadCache("Theme");
+
+                return (string)HttpRuntime.Cache["Theme"];
+            }
+        }
 
         private static bool IsExpired(string key)
         {
@@ -63,5 +104,31 @@ namespace MudHook.Core
             string value = repo.GetMeta(key).Value;
             HttpRuntime.Cache.Insert(key, value, null, DateTime.Now.AddMinutes(60), Cache.NoSlidingExpiration);
         }
+        
+        public static void Update(MetadataModel model)
+        {
+            MudHookRepository repo = new MudHookRepository();
+
+            if(string.IsNullOrEmpty(model.SiteName))
+                throw new ArgumentException("You need a site sitename");
+            if (string.IsNullOrEmpty(model.SiteDescription))
+                throw new ArgumentException("You need a site description");
+            if (string.IsNullOrEmpty(model.SiteName))
+                throw new ArgumentException("You need a theme");
+
+            bool updateRoutes = model.HomePage!= MetaData.HomePage;
+
+            foreach (PropertyInfo property in model.GetType().GetProperties())
+            {
+                repo.SetMeta(property.Name, property.GetValue(model, null).ToString());
+                HttpRuntime.Cache.Remove(property.Name);
+            }
+
+            if (updateRoutes)
+            {
+                MudHookRoutes.UpdateRouteRegistration();
+            }
+        }
+
     }
 }

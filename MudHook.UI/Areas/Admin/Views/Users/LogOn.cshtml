@@ -6,7 +6,8 @@
 
 <h1>Log in</h1>
 
-@Html.ValidationSummary(true, "Login was unsuccessful. Please correct the errors and try again.")
+@Html.Raw(MudHookNotifications.Get().Html)
+
 <section class="content">
 @using (Html.BeginForm()) {    
         <fieldset>            

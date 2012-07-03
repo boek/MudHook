@@ -47,7 +47,7 @@ namespace MudHook.Core
             context.Meta.Add(new Meta { Key = "PostsPage", Value = "posts" });
             context.Meta.Add(new Meta { Key = "HomePage", Value = "about" });
             context.Meta.Add(new Meta { Key = "Twitter", Value = "jeffboek" });
-            context.Meta.Add(new Meta { Key = "AutPublishComments", Value = "1" });
+            context.Meta.Add(new Meta { Key = "AutoPublishComments", Value = "false" });
             context.Meta.Add(new Meta { Key = "PostsPerPage", Value = "10" });
             context.Meta.Add(new Meta { Key = "SiteName", Value = "My First MudHook Blogs" });
             context.Meta.Add(new Meta { Key = "SiteDescription", Value = "It's not just any blog. It's MudHook CMS" });
@@ -56,6 +56,7 @@ namespace MudHook.Core
             //Add Pages
             context.Pages.Add(new Page { Id = 1, Slug = "posts", Name = "Posts", Title = "My posts and thoughts", Content = "<p>Welcome!</p>", Status = PostStatus.published });
             context.Pages.Add(new Page{Id = 1, Slug = "about", Name = "About", Title = "A little bit about me", Content = "<p>This is a little bit of text about me.</p>", Status = PostStatus.published });
+            
         }
     }
 }

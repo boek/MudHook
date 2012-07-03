@@ -52,8 +52,10 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ExtensionMethods\StringExtensions.cs" />
     <Compile Include="HtmlHelpers\DisplayTimePassed.cs" />
     <Compile Include="MetaData.cs" />
+    <Compile Include="MetaDataModel.cs" />
     <Compile Include="MudHook.cs" />
     <Compile Include="MudHookContext.cs" />
     <Compile Include="MudHookExtensions.cs" />

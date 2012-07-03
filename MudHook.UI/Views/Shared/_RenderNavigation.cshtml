@@ -6,7 +6,7 @@
 	<ul>	
     @foreach (var p in Model)
     { 
-        <li @if(currentPage == p.Slug){
+        <li @if(currentPage.ToLower() == p.Slug.ToLower()){
                 @:class="active"
                 }>
 		    <a href="@Url.RouteUrl("page", new{ slug = @p.Slug})" title="@p.Title">                

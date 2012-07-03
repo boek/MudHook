@@ -7,7 +7,11 @@ using System.Security.Cryptography;
 namespace MudHook.Core
 {    
     public class MudHookSecurity
-    {                
+    {
+        public static string Hash(string password, string salt)
+        {
+            return Convert.ToBase64String(MudHookSecurity.GenerateSaltedHash(Encoding.UTF8.GetBytes(password), Encoding.UTF8.GetBytes(salt)));
+        }
         public static byte[] GenerateSaltedHash(byte[] plainText, byte[] salt)
         {            
             HashAlgorithm algorithm = new SHA256Managed();

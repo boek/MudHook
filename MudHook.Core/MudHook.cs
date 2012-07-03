@@ -34,8 +34,7 @@ namespace MudHook.Core
     public class Page
     {
         public int Id { get; set; }        
-
-        [Required]
+        
         public string Slug { get; set; }
 
         [Required]
@@ -124,7 +123,8 @@ namespace MudHook.Core
         public string Email { get; set; }
 
         public string RealName { get; set; }        
-        public string Bio { get; set; }        
+        public string Bio { get; set; }
+        [Display(Name = "Status")]
         public int UserStatusValue { get; set; }
         public UserStatus Status
         {

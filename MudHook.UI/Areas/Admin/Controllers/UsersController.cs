@@ -42,19 +42,20 @@ namespace MudHook.UI.Areas.Admin.Controllers
         [HttpPost]
         public ActionResult Add(User user)
         {
+            user.Role = repo.GetRole(user.RoleId);
             if (ModelState.IsValid)
             {
                 try
                 {
-                    MembershipService.CreateUser(user.Username, user.RealName, user.Password, user.Password, "Member");
+                    MembershipService.CreateUser(user.Username, user.RealName, user.Password, user.Password, user.Role.Name);
 
                     MudHookNotifications.Set(new Notification("success", "User was successfully added."));
-                    
-                    return RedirectToAction("Index", "Home");
+
+                    return RedirectToAction("Index", "Users");
                 }
                 catch (ArgumentException ae)
                 {
-                    ModelState.AddModelError("", ae.Message);
+                    MudHookNotifications.Set(new Notification("error", ae.Message));
                 }
             }
 
@@ -122,7 +123,7 @@ namespace MudHook.UI.Areas.Admin.Controllers
                 }
                 else
                 {
-                    ModelState.AddModelError("", "The user name or password provided is incorrect.");
+                    MudHookNotifications.Set(new Notification("error", "The user name or password provided is incorrect."));                    
                 }
             }
             
@@ -189,6 +190,14 @@ namespace MudHook.UI.Areas.Admin.Controllers
         public ActionResult ChangePasswordSuccess()
         {
             return View();
+        }
+
+        [HttpPost, ActionName("Delete")]
+        public ActionResult Delete(int id)
+        {
+            repo.DeleteUser(id);
+            MudHookNotifications.Set(new Notification("success", "User has been deleted"));
+            return RedirectToAction("Index");
         }
 
         #region Status Codes

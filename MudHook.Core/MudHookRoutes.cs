@@ -9,19 +9,18 @@ namespace MudHook.Core
 {
     public class MudHookRoutes
     {        
-        public static string postPage
-        {
-            get{
-                MudHookRepository repo = new MudHookRepository();
-                return repo.GetMeta("PostsPage").Value;
-            }
-        }
-        public static string homePage
+        private static string postPage
         {
             get
             {
-                MudHookRepository repo = new MudHookRepository();
-                return repo.GetMeta("HomePage").Value;
+                return MetaData.PostsPage;
+            }
+        }
+        private static string homePage
+        {
+            get
+            {
+                return MetaData.HomePage;
             }
         }
 
@@ -42,6 +41,16 @@ namespace MudHook.Core
                 new { controller = "Home", action = "Page", slug = homePage } // Parameter defaults
             );
 
+        }
+        public static void UpdateRouteRegistration()
+        {
+            RouteCollection routes = RouteTable.Routes;
+            using (routes.GetWriteLock())
+            {
+                routes.Clear();
+                AreaRegistration.RegisterAllAreas();
+                MudHookRoutes.RegisterRoutes(routes);
+            }
         }
         
     }

@@ -28,13 +28,14 @@
         <p>
             @Html.LabelFor(model => model.UserStatusValue)
 
-            @Html.DropDownListFor(model => model.UserStatusValue, new SelectList(Enum.GetValues(typeof(UserStatus))))
+            @Html.DropDownListFor(model => model.UserStatusValue, MudHookExtensions.GetUserStatusSelectList())
             <em>If inactive, the user will not be able to log in.</em>
         </p>
         <p>
             @Html.LabelFor(model => model.RoleId)
 
-            @Html.EditorFor(model => model.RoleId)
+            <!--@Html.EditorFor(model => model.RoleId)-->
+            @Html.DropDownListFor(model => model.RoleId, MudHookExtensions.GetRolesSelectList())
             <em>The user&rsquo;s role. See <a href="//anchorcms.com/docs/roles">here</a> for more info.</em>
         </p>    
     </fieldset>
@@ -42,9 +43,9 @@
         <legend>User Details</legend>
         <em>Create the details for your new user to log in to MudHook.</em>
         <p>
-            @Html.LabelFor(model => model.Username);
+            @Html.LabelFor(model => model.Username)
 
-            @Html.EditorFor(model => model.Username);
+            @Html.EditorFor(model => model.Username)
             <em>The desired username. Can be changed later.</em>
         </p>
         <p>
