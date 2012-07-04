@@ -1,5 +1,5 @@
 ﻿@{
-    Layout = null;    
+	Layout = null;    
 }
 
 <!doctype html>
@@ -12,9 +12,9 @@
 		<link href="@Url.Content("~/Areas/Admin/Themes/Default/css/popup.css")" rel="stylesheet" type="text/css" />
 
 
-        <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/lib.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/helpers.js")" type="text/javascript"></script>
-        <script src="@Url.Content("~/Areas/Admin/Themes/Default/js/popup.js")" type="text/javascript"></script>		
+		<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/lib.js")" type="text/javascript"></script>
+		<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/helpers.js")" type="text/javascript"></script>
+		<script src="@Url.Content("~/Areas/Admin/Themes/Default/js/popup.js")" type="text/javascript"></script>		
 		<script>		    //var Base_url = '<?php echo admin_url(); ?>';</script>
 	</head>
 	<body>
@@ -23,17 +23,17 @@
 				<img src="@Url.Content("~/Areas/Admin/Themes/Default/img/logo.png")" alt="MudHook">
 			</a>           			
 			@Html.Partial("_NavigationPartial")
-            @Html.Partial("_LogOnPartial")
+			@Html.Partial("_LogOnPartial")
 		</header>
-        @RenderBody()
-        @Html.Partial("_SideBarPartial")	    
-	    <footer id="bottom">
-		    <small>
-                Powered by Anchor, version 0.1 
-		        <a href="#">Visit your site</a>.
-		    </small>
+		@RenderBody()
+		@Html.Partial("_SideBarPartial")	    
+		<footer id="bottom">
+			<small>
+				Powered by Anchor, version 0.1 
+				<a href="#">Visit your site</a>.
+			</small>
 		
-		    <em>Make blogging beautiful.</em>
-	    </footer>	    
+			<em>Make blogging beautiful.</em>
+		</footer>	    
 	</body>
 </html>
